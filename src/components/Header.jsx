@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { selectCartCount } from "../utils/cartSlice";
 
-// Header component for header section: Logo, Nav Items
 const Header = () => {
   const [btnNameReact, setBtnNameReact] = useState("Login");
   const [isOpen, setIsOpen] = useState(false); // State for the hamburger menu
