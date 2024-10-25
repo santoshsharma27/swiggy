@@ -57,7 +57,7 @@ const Header = () => {
               Home
             </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink
               to="/about"
               className={({ isActive }) =>
@@ -66,7 +66,7 @@ const Header = () => {
             >
               About
             </NavLink>
-          </li>
+          </li> */}
           <li>
             <NavLink
               to="/contact"
@@ -127,7 +127,7 @@ const Header = () => {
                 Home
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink
                 to="/about"
                 onClick={toggleMenu}
@@ -135,7 +135,7 @@ const Header = () => {
               >
                 About
               </NavLink>
-            </li>
+            </li> */}
             <li>
               <NavLink
                 to="/contact"
