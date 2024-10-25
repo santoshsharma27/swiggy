@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { HiShoppingCart } from "react-icons/hi2";
+import { FaBars, FaTimes } from "react-icons/fa";
 import useOnline from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext";
 import { useSelector } from "react-redux";
-import { FaBars, FaTimes } from "react-icons/fa";
 import { selectCartCount } from "../utils/cartSlice";
 
 const Header = () => {
@@ -15,34 +15,31 @@ const Header = () => {
   const { loggedInUser } = useContext(UserContext);
   const totalCount = useSelector(selectCartCount);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggleMenu = () => setIsOpen((prev) => !prev);
+  const toggleLoginLogout = () =>
+    setBtnNameReact((prev) => (prev === "Login" ? "Logout" : "Login"));
 
   return (
-    <header className="flex items-center justify-between bg-white text-black font-bold fixed w-screen shadow-md z-50 h-16 px-4 md:px-10 md:bg-white">
-      <Link to="/" className="tracking-widest font-bold text-[24px]">
+    <header className="flex items-center justify-between bg-white text-black font-bold fixed w-screen shadow-md z-50 h-16 px-4 md:px-10">
+      <Link
+        to="/"
+        className="tracking-widest font-bold text-[24px]"
+        aria-label="Home"
+      >
         Fast Food Co.
       </Link>
 
       <div className="flex items-center space-x-4 md:hidden">
-        {/* Cart Icon (Visible next to hamburger menu on mobile) */}
         <NavLink to="/cart" className="flex items-center space-x-1">
-          <HiShoppingCart size={24} />
+          <HiShoppingCart size={24} aria-label="Cart" />
           <span>{totalCount}</span>
         </NavLink>
 
-        {/* Hamburger Icon */}
-        <button onClick={toggleMenu}>
-          {isOpen ? (
-            <FaTimes size={24} className="text-black" />
-          ) : (
-            <FaBars size={24} className="text-black" />
-          )}
+        <button onClick={toggleMenu} aria-label="Menu">
+          {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
         </button>
       </div>
 
-      {/* Desktop Navigation Menu */}
       <nav className="hidden md:flex pr-8">
         <ul className="flex items-center space-x-7">
           <li>{isOnline ? "🟢" : "🔴"}</li>
@@ -56,16 +53,6 @@ const Header = () => {
               Home
             </NavLink>
           </li>
-          {/* <li>
-            <NavLink
-              to="/about"
-              className={({ isActive }) =>
-                `${isActive ? "text-red-500" : ""} hover:text-red-500`
-              }
-            >
-              About
-            </NavLink>
-          </li> */}
           <li>
             <NavLink
               to="/contact"
@@ -76,7 +63,6 @@ const Header = () => {
               Contact Us
             </NavLink>
           </li>
-
           <li>
             <NavLink
               to="/grocery"
@@ -88,16 +74,12 @@ const Header = () => {
             </NavLink>
           </li>
           <button
-            onClick={() => {
-              btnNameReact === "Login"
-                ? setBtnNameReact("Logout")
-                : setBtnNameReact("Login");
-            }}
+            onClick={toggleLoginLogout}
             className="text-black transition duration-300 hover:text-red-500"
           >
             {btnNameReact}
           </button>
-          <li>{loggedInUser}</li>
+          {btnNameReact === "Logout" && <li>{loggedInUser}</li>}
         </ul>
 
         <NavLink to="/cart" className="flex items-center space-x-2 px-8">
@@ -106,67 +88,53 @@ const Header = () => {
         </NavLink>
       </nav>
 
-      {/* Full-Screen Navigation Menu for Mobile */}
       {isOpen && (
-        <div className="fixed inset-0 bg-black z-40 flex flex-col items-center justify-start py-16">
+        <div className="fixed inset-0 bg-black z-40 flex flex-col items-center py-16">
           <button
             onClick={toggleMenu}
             className="absolute top-5 right-5 text-white text-3xl"
+            aria-label="Close menu"
           >
             <FaTimes />
           </button>
-          <ul className="flex flex-col items-center space-y-8">
+          <ul className="flex flex-col items-center space-y-8 text-white text-2xl">
             <li>{isOnline ? "🟢" : "🔴"}</li>
             <li>
               <NavLink
                 to="/"
                 onClick={toggleMenu}
-                className="text-white text-2xl transition-colors duration-300 hover:text-red-500"
+                className="transition-colors duration-300 hover:text-red-500"
               >
                 Home
               </NavLink>
             </li>
-            {/* <li>
-              <NavLink
-                to="/about"
-                onClick={toggleMenu}
-                className="text-white text-2xl transition-colors duration-300 hover:text-red-500"
-              >
-                About
-              </NavLink>
-            </li> */}
             <li>
               <NavLink
                 to="/contact"
                 onClick={toggleMenu}
-                className="text-white text-2xl transition-colors duration-300 hover:text-red-500"
+                className="transition-colors duration-300 hover:text-red-500"
               >
                 Contact Us
               </NavLink>
             </li>
-
             <li>
               <NavLink
                 to="/grocery"
                 onClick={toggleMenu}
-                className="text-white text-2xl transition-colors duration-300 hover:text-red-500"
+                className="transition-colors duration-300 hover:text-red-500"
               >
                 Grocery
               </NavLink>
             </li>
             <li>
               <button
-                onClick={() => {
-                  btnNameReact === "Login"
-                    ? setBtnNameReact("Logout")
-                    : setBtnNameReact("Login");
-                }}
-                className="text-white text-2xl transition-colors duration-300 hover:text-red-500"
+                onClick={toggleLoginLogout}
+                className="transition-colors duration-300 hover:text-red-500"
               >
                 {btnNameReact}
               </button>
             </li>
-            <li className="text-white text-2xl">{loggedInUser}</li>
+            {btnNameReact === "Logout" && <li>{loggedInUser}</li>}
           </ul>
         </div>
       )}
