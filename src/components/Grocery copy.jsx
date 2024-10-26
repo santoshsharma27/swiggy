@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { FaShoppingCart } from "react-icons/fa"; // Import a cart icon for better UI
 
 const Grocery = () => {
   const [cart, setCart] = useState({});
-  const [clickedButton, setClickedButton] = useState(null);
+  const [clickedButton, setClickedButton] = useState(null); // To track which button was clicked
 
   const products = [
     {
@@ -12,7 +11,6 @@ const Grocery = () => {
       price: 2.99,
       image: "/images/apples.png",
       category: "Fruits",
-      soldOut: true, // Mark as sold out
     },
     {
       id: 2,
@@ -20,7 +18,6 @@ const Grocery = () => {
       price: 1.49,
       image: "/images/bananas.png",
       category: "Fruits",
-      soldOut: true, // Mark as sold out
     },
     {
       id: 3,
@@ -28,7 +25,6 @@ const Grocery = () => {
       price: 0.99,
       image: "/images/carrots.png",
       category: "Vegetables",
-      soldOut: true, // Mark as sold out
     },
     {
       id: 4,
@@ -36,7 +32,6 @@ const Grocery = () => {
       price: 3.49,
       image: "/images/milk.png",
       category: "Dairy",
-      soldOut: true, // Mark as sold out
     },
     {
       id: 5,
@@ -44,7 +39,6 @@ const Grocery = () => {
       price: 2.29,
       image: "/images/eggs.png",
       category: "Dairy",
-      soldOut: true, // Mark as sold out
     },
     {
       id: 6,
@@ -52,12 +46,10 @@ const Grocery = () => {
       price: 2.79,
       image: "/images/bread.png",
       category: "Bakery",
-      soldOut: true, // Mark as sold out
     },
   ];
 
   const addToCart = (product) => {
-    if (product.soldOut) return; // Prevent adding to cart if sold out
     setCart((prevCart) => ({
       ...prevCart,
       [product.id]: {
@@ -66,6 +58,8 @@ const Grocery = () => {
       },
     }));
     setClickedButton(product.id);
+
+    // Reset button highlight after a short delay
     setTimeout(() => setClickedButton(null), 200);
   };
 
@@ -99,26 +93,16 @@ const Grocery = () => {
             <p className="text-lg font-bold text-blue-600">
               ₹{product.price.toFixed(2)}
             </p>
-            {product.soldOut ? (
-              <button
-                disabled
-                className="mt-4 py-2 px-6 font-semibold rounded-lg shadow-md bg-gray-300 text-gray-600 cursor-not-allowed flex items-center gap-2 transition duration-200 transform hover:scale-105"
-              >
-                <FaShoppingCart className="text-gray-500 line-through" /> Sold
-                Out
-              </button>
-            ) : (
-              <button
-                onClick={() => addToCart(product)}
-                className={`mt-4 py-2 px-6 font-semibold rounded-lg shadow-md transition duration-200 ${
-                  clickedButton === product.id
-                    ? "bg-green-700"
-                    : "bg-green-500 hover:bg-green-600"
-                } text-white`}
-              >
-                Add to Cart
-              </button>
-            )}
+            <button
+              onClick={() => addToCart(product)}
+              className={`mt-4 py-2 px-6 font-semibold rounded-lg shadow-md transition duration-200 ${
+                clickedButton === product.id
+                  ? "bg-green-700"
+                  : "bg-green-500 hover:bg-green-600"
+              } text-white`}
+            >
+              Add to Cart
+            </button>
           </div>
         ))}
       </div>
