@@ -9,7 +9,7 @@ const Grocery = () => {
     {
       id: 1,
       name: "Apples",
-      price: 2.99,
+      price: 120.0,
       image: "/images/apples.png",
       category: "Fruits",
       soldOut: true, // Mark as sold out
@@ -17,7 +17,7 @@ const Grocery = () => {
     {
       id: 2,
       name: "Bananas",
-      price: 1.49,
+      price: 60.0,
       image: "/images/bananas.png",
       category: "Fruits",
       soldOut: true, // Mark as sold out
@@ -25,7 +25,7 @@ const Grocery = () => {
     {
       id: 3,
       name: "Carrots",
-      price: 0.99,
+      price: 65.0,
       image: "/images/carrots.png",
       category: "Vegetables",
       soldOut: true, // Mark as sold out
@@ -33,7 +33,7 @@ const Grocery = () => {
     {
       id: 4,
       name: "Milk",
-      price: 3.49,
+      price: 30.0,
       image: "/images/milk.png",
       category: "Dairy",
       soldOut: true, // Mark as sold out
@@ -41,7 +41,7 @@ const Grocery = () => {
     {
       id: 5,
       name: "Eggs",
-      price: 2.29,
+      price: 8.0,
       image: "/images/eggs.png",
       category: "Dairy",
       soldOut: true, // Mark as sold out
@@ -49,7 +49,7 @@ const Grocery = () => {
     {
       id: 6,
       name: "Bread",
-      price: 2.79,
+      price: 40.0,
       image: "/images/bread.png",
       category: "Bakery",
       soldOut: true, // Mark as sold out
@@ -78,10 +78,7 @@ const Grocery = () => {
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
-        Online Grocery Store
-      </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pt-16">
         {products.map((product) => (
           <div
             key={product.id}
