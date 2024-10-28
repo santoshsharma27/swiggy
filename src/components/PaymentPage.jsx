@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaCcVisa, FaCcMastercard, FaCcDiscover } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { selectTotalPrice } from "../utils/cartSlice";
 
 const PaymentPage = () => {
   const [formData, setFormData] = useState({
@@ -13,10 +15,30 @@ const PaymentPage = () => {
   const [loading, setLoading] = useState(false); // State for loader
 
   const navigate = useNavigate();
+  const totalPrice = useSelector(selectTotalPrice);
 
+  // Updated handleChange for card number and expiry date formatting
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+
+    if (name === "cardNumber") {
+      // Format card number to include spaces every four digits
+      let formattedValue =
+        value
+          .replace(/\D/g, "")
+          .match(/.{1,4}/g)
+          ?.join(" ") || "";
+      setFormData({ ...formData, [name]: formattedValue });
+    } else if (name === "expiryDate") {
+      // Automatically add a slash after MM
+      let formattedValue = value.replace(/[^0-9]/g, "");
+      if (formattedValue.length > 2) {
+        formattedValue = `${formattedValue.slice(0, 2)}/${formattedValue.slice(2, 4)}`;
+      }
+      setFormData({ ...formData, [name]: formattedValue });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = (e) => {
@@ -46,7 +68,7 @@ const PaymentPage = () => {
 
         <div className="mb-4 text-center">
           <span className="text-lg font-semibold">Total Amount: </span>
-          <span className="text-xl text-green-600"> ₹400.00</span>
+          <span className="text-xl font-bold"> ₹{totalPrice}</span>
         </div>
 
         <form onSubmit={handleSubmit}>
@@ -58,11 +80,12 @@ const PaymentPage = () => {
               Card Number
             </label>
             <input
-              type="number"
+              type="text"
               name="cardNumber"
               id="cardNumber"
               value={formData.cardNumber}
               onChange={handleChange}
+              maxLength="19" // For 16 digits + 3 spaces
               required
               className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="1234 5678 9012 3456"
@@ -95,11 +118,12 @@ const PaymentPage = () => {
                 Expiry Date (MM/YY)
               </label>
               <input
-                type="number"
+                type="text"
                 name="expiryDate"
                 id="expiryDate"
                 value={formData.expiryDate}
                 onChange={handleChange}
+                maxLength="5" // For MM/YY
                 required
                 className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="MM/YY"
@@ -113,11 +137,12 @@ const PaymentPage = () => {
                 CVV
               </label>
               <input
-                type="number"
+                type="text"
                 name="cvv"
                 id="cvv"
                 value={formData.cvv}
                 onChange={handleChange}
+                maxLength="3" // For CVV
                 required
                 className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="123"
@@ -165,7 +190,7 @@ const PaymentPage = () => {
           <h3 className="text-lg font-semibold mb-4">Order Summary</h3>
           <div className="flex justify-between">
             <span>Product Price</span>
-            <span> ₹400.00</span>
+            <span> ₹{totalPrice}</span>
           </div>
           <div className="flex justify-between my-2">
             <span>Shipping</span>
@@ -173,7 +198,7 @@ const PaymentPage = () => {
           </div>
           <div className="flex justify-between font-bold">
             <span>Total</span>
-            <span> ₹400.00</span>
+            <span>₹{totalPrice}</span>
           </div>
         </div>
       </div>

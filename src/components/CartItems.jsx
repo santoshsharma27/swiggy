@@ -3,13 +3,16 @@ import {
   incrementItemQuantity,
   decrementItemQuantity,
   deleteItem,
+  selectTotalPrice,
 } from "../utils/cartSlice";
 import { useState, useEffect } from "react";
 
 function CartItems({ items }) {
+  const [itemCounts, setItemCounts] = useState({});
+
   const dispatch = useDispatch();
   const cartItems = useSelector((store) => store.cart.cart);
-  const [itemCounts, setItemCounts] = useState({});
+  const totalPrice = useSelector(selectTotalPrice);
 
   // Initialize item counts from the cart
   useEffect(() => {
@@ -91,6 +94,13 @@ function CartItems({ items }) {
           </div>
         );
       })}
+
+      {/* Display Total Price and Order Button */}
+      <div className="p-4 border-t mt-6 text-right">
+        <div className="text-lg font-bold">
+          Total Amount: ₹{totalPrice.toFixed(2)}
+        </div>
+      </div>
     </div>
   );
 }

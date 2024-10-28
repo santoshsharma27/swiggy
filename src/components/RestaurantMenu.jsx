@@ -7,10 +7,16 @@ import Loader from "../ui/Loader";
 const RestaurantMenu = () => {
   const [curOpen, setCurOpen] = useState(0);
   const { resId } = useParams();
-  const resInfo = useRestaurantMenu(resId);
+  const { resInfo, loading, error } = useRestaurantMenu(resId);
 
-  // Show shimmer while loading
-  if (resInfo === null) return <Loader />;
+  // Show loader while loading
+  if (loading) return <Loader />;
+
+  // Show error message if there's an error
+  if (error) return <p className="text-red-500">{error}</p>;
+
+  // Check if resInfo is available
+  if (!resInfo) return <p>No menu available.</p>;
 
   const { name, costForTwoMessage, avgRating } =
     resInfo?.cards[2]?.card?.card?.info;

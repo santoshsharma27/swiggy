@@ -1,5 +1,3 @@
-import React from "react";
-
 const Shimmer = () => {
   return (
     <div className="flex flex-wrap items-center justify-center pt-4">

@@ -1,13 +1,11 @@
-import React, { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { FaCheckCircle } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { clearCart } from "../utils/cartSlice"; // Adjust the path if needed
+import { clearCart } from "../utils/cartSlice";
 
 const OrderSuccess = () => {
-  const location = useLocation();
   const dispatch = useDispatch();
-  const { firstName, phoneNumber, address, city } = location.state || {};
 
   // Generate a random order ID (e.g., a 6-digit number)
   const orderId = Math.floor(100000 + Math.random() * 900000);

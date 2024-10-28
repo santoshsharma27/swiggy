@@ -1,0 +1,8 @@
+export const calculateTotalPrice = (cart) => {
+  return cart.reduce((total, item) => {
+    const itemPrice = item.card.info.price
+      ? item.card.info.price / 100
+      : item.card.info.defaultPrice / 100;
+    return total + itemPrice * item.quantity;
+  }, 0);
+};
