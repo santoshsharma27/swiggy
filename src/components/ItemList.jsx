@@ -97,15 +97,6 @@ function ItemList({ items, setNotification }) {
                 alt={item?.card?.info?.name}
               />
               <div className="flex items-center space-x-2">
-                <button
-                  className="w-10 h-10 flex justify-center items-center border border-green-500 text-green-500 font-semibold rounded-md transition-colors hover:bg-green-500 hover:text-white"
-                  onClick={() => addHandler(item)}
-                >
-                  +
-                </button>
-                {currentCount > 0 && (
-                  <span className="text-lg font-semibold">{currentCount}</span>
-                )}
                 {currentCount > 0 && (
                   <button
                     className="w-10 h-10 flex justify-center items-center border border-red-500 text-red-500 font-semibold rounded-md transition-colors hover:bg-red-500 hover:text-white"
@@ -114,6 +105,15 @@ function ItemList({ items, setNotification }) {
                     -
                   </button>
                 )}
+                {currentCount > 0 && (
+                  <span className="text-lg font-semibold">{currentCount}</span>
+                )}
+                <button
+                  className="w-10 h-10 flex justify-center items-center border border-green-500 text-green-500 font-semibold rounded-md transition-colors hover:bg-green-500 hover:text-white"
+                  onClick={() => addHandler(item)}
+                >
+                  +
+                </button>
               </div>
             </div>
           </div>
