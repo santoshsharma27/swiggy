@@ -78,17 +78,17 @@ function CartItems({ items }) {
             {/* Quantity Display and Buttons */}
             <div className="flex items-center justify-center space-x-3 mt-4 md:mt-0 md:w-2/5">
               <button
-                className="px-4 py-2 border border-green-500 text-green-500 font-semibold rounded-md transition-colors hover:bg-green-500 hover:text-white"
-                onClick={() => addHandler(item)}
-              >
-                +
-              </button>
-              <span className="text-lg font-semibold">{currentCount}</span>
-              <button
                 className="px-4 py-2 border border-red-500 text-red-500 font-semibold rounded-md transition-colors hover:bg-red-500 hover:text-white"
                 onClick={() => deleteHandler(item)}
               >
                 -
+              </button>
+              <span className="text-lg font-semibold">{currentCount}</span>
+              <button
+                className="px-4 py-2 border border-green-500 text-green-500 font-semibold rounded-md transition-colors hover:bg-green-500 hover:text-white"
+                onClick={() => addHandler(item)}
+              >
+                +
               </button>
             </div>
           </div>
