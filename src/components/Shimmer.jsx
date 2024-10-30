@@ -6,7 +6,7 @@ const Shimmer = () => {
         .map((_, index) => (
           <div
             key={index}
-            className="m-4 w-full max-w-[250px] sm:max-w-[300px] lg:max-w-[320px] flex flex-col rounded-lg bg-gray-100 shadow-lg animate-pulse"
+            className="m-4 w-full max-w-[290px] sm:max-w-[300px] lg:max-w-[320px] flex flex-col rounded-lg bg-gray-100 shadow-lg animate-pulse"
           >
             {/* Image Placeholder */}
             <div className="h-[150px] sm:h-[180px] md:h-[200px] rounded-lg bg-gray-300 m-5"></div>

@@ -80,7 +80,7 @@ const PaymentPage = () => {
               Card Number
             </label>
             <input
-              type="text"
+              type="number"
               name="cardNumber"
               id="cardNumber"
               value={formData.cardNumber}
@@ -118,7 +118,7 @@ const PaymentPage = () => {
                 Expiry Date (MM/YY)
               </label>
               <input
-                type="text"
+                type="number"
                 name="expiryDate"
                 id="expiryDate"
                 value={formData.expiryDate}
@@ -137,7 +137,7 @@ const PaymentPage = () => {
                 CVV
               </label>
               <input
-                type="text"
+                type="number"
                 name="cvv"
                 id="cvv"
                 value={formData.cvv}
