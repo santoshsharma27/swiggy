@@ -10,6 +10,7 @@ import OrderSuccess from "./components/OrderSuccess";
 import PaymentPage from "./components/PaymentPage";
 import AppLayout from "./ui/AppLayout";
 import Home from "./components/Home";
+import LoginPage from "./components/LoginPage";
 // import Grocery from "./components/Grocery";
 // import About from "./components/About";
 
@@ -65,6 +66,14 @@ const router = createBrowserRouter([
       {
         path: "/order-success",
         element: <OrderSuccess />,
+      },
+      {
+        path: "/login",
+        element: <LoginPage />,
+      },
+      {
+        path: "/signup",
+        element: <LoginPage />,
       },
     ],
   },
