@@ -9,12 +9,11 @@ const AppLayout = () => {
   const [userName, setUserName] = useState("");
 
   useEffect(() => {
-    const data = { name: USERNAME };
-    setUserName(data.name);
+    setUserName(USERNAME);
   }, []);
 
   return (
-    <UserContext.Provider value={{ loggedInUser: userName }}>
+    <UserContext.Provider value={{ userName }}>
       <div className="flex flex-col min-h-screen">
         <Header />
         <main className="flex-grow">
