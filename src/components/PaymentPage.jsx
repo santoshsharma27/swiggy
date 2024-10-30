@@ -17,7 +17,6 @@ const PaymentPage = () => {
   const navigate = useNavigate();
   const totalPrice = useSelector(selectTotalPrice);
 
-  // Updated handleChange for card number and expiry date formatting
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -25,7 +24,7 @@ const PaymentPage = () => {
       // Format card number to include spaces every four digits
       let formattedValue =
         value
-          .replace(/\D/g, "")
+          .replace(/[^0-9]/g, "")
           .match(/.{1,4}/g)
           ?.join(" ") || "";
       setFormData({ ...formData, [name]: formattedValue });
@@ -36,7 +35,12 @@ const PaymentPage = () => {
         formattedValue = `${formattedValue.slice(0, 2)}/${formattedValue.slice(2, 4)}`;
       }
       setFormData({ ...formData, [name]: formattedValue });
+    } else if (name === "cvv") {
+      // Allow only numeric input for CVV
+      const numericValue = value.replace(/[^0-9]/g, "");
+      setFormData({ ...formData, [name]: numericValue });
     } else {
+      // For cardholder name, set value directly
       setFormData({ ...formData, [name]: value });
     }
   };
@@ -80,7 +84,7 @@ const PaymentPage = () => {
               Card Number
             </label>
             <input
-              type="number"
+              type="text" // Change to text to allow spaces
               name="cardNumber"
               id="cardNumber"
               value={formData.cardNumber}
@@ -118,7 +122,7 @@ const PaymentPage = () => {
                 Expiry Date (MM/YY)
               </label>
               <input
-                type="number"
+                type="text" // Change to text to allow slash
                 name="expiryDate"
                 id="expiryDate"
                 value={formData.expiryDate}
@@ -137,7 +141,7 @@ const PaymentPage = () => {
                 CVV
               </label>
               <input
-                type="number"
+                type="text" // Change to text to allow only numbers
                 name="cvv"
                 id="cvv"
                 value={formData.cvv}
