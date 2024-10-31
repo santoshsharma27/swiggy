@@ -9,25 +9,27 @@ function RestaurantCategory({ data, num, curOpen, onOpen }) {
   }
 
   return (
-    <div className="w-full md:w-8/12 bg-gray-50 p-4 mx-auto my-4 rounded-lg shadow-lg">
+    <div className="mx-auto my-4 w-full rounded-lg bg-white shadow-lg md:w-8/12">
       <div
-        className="flex justify-between cursor-pointer"
+        className="flex cursor-pointer items-center justify-between rounded-lg p-2 transition duration-300 hover:bg-gray-100"
         onClick={handleClick}
       >
-        <span className="font-semibold text-lg">
+        <span className="text-lg font-semibold">
           {data.title} ({data?.itemCards.length})
         </span>
-        {isOpen ? (
-          <span>
-            <HiChevronUp />
-          </span>
-        ) : (
-          <span>
-            <HiChevronDown />
-          </span>
-        )}
+        <span className="text-gray-600">
+          {isOpen ? (
+            <HiChevronUp className="text-lg" />
+          ) : (
+            <HiChevronDown className="text-lg" />
+          )}
+        </span>
       </div>
-      {isOpen && <ItemList items={data.itemCards} />}
+      {isOpen && (
+        <div className="mt-2 overflow-hidden transition-all duration-300 ease-in-out">
+          <ItemList items={data.itemCards} />
+        </div>
+      )}
     </div>
   );
 }

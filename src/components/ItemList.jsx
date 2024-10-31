@@ -63,18 +63,18 @@ function ItemList({ items, setNotification }) {
   }
 
   return (
-    <div className="grid gap-8 p-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
       {items?.map((item) => {
         const itemId = item.card.info.id;
         const currentCount = itemCounts[itemId] || 0;
 
         return (
           <div
-            className="relative flex flex-col items-center justify-between p-4 bg-gray-100 shadow-md rounded-lg hover:shadow-lg transition-transform transform hover:-translate-y-1"
+            className="relative flex flex-col items-center justify-between rounded-lg p-4"
             key={itemId}
           >
             <img
-              className="w-full h-48 object-cover rounded-md mb-3"
+              className="mb-3 h-48 w-full rounded-md object-cover"
               src={CDN_URL + item?.card?.info?.imageId}
               alt={item?.card?.info?.name}
             />
@@ -82,8 +82,8 @@ function ItemList({ items, setNotification }) {
               <h3 className="text-lg font-semibold text-gray-800">
                 {item?.card?.info?.name}
               </h3>
-              <div className="flex items-center justify-between mt-1 text-base">
-                <span className="text-gray-700 font-bold">
+              <div className="mt-1 flex items-center justify-between text-base">
+                <span className="font-bold text-gray-700">
                   ₹
                   {item.card.info.price
                     ? item.card.info.price / 100
@@ -91,16 +91,16 @@ function ItemList({ items, setNotification }) {
                 </span>
                 {/* Conditionally render rating only if it exists */}
                 {item.card.info.ratings?.aggregatedRating?.rating && (
-                  <span className="flex items-center bg-green-500 text-white text-xs px-2 py-1 rounded-md">
+                  <span className="flex items-center rounded-md bg-green-500 px-2 py-1 text-xs text-white">
                     ✭ {item.card.info.ratings.aggregatedRating.rating}
                   </span>
                 )}
               </div>
             </div>
-            <div className="flex items-center justify-center mt-3 w-full">
+            <div className="mt-3 flex w-full items-center justify-center">
               {currentCount > 0 && (
                 <button
-                  className="flex-1 py-2 bg-red-500 text-white font-semibold rounded-l-md hover:bg-red-600"
+                  className="flex-1 rounded-l-md bg-red-500 py-2 font-semibold text-white hover:bg-red-600"
                   onClick={() => deleteHandler(item)}
                 >
                   -
@@ -114,7 +114,7 @@ function ItemList({ items, setNotification }) {
               <button
                 className={`flex-1 py-2 ${
                   currentCount > 0 ? "rounded-r-md" : "rounded-md"
-                } bg-green-500 text-white font-semibold hover:bg-green-600`}
+                } bg-green-500 font-semibold text-white hover:bg-green-600`}
                 onClick={() => addHandler(item)}
               >
                 +

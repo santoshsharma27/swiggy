@@ -27,10 +27,10 @@ const Header = () => {
   };
 
   return (
-    <header className="flex items-center justify-between bg-white text-black font-bold fixed w-full shadow-md z-50 h-16 px-4 md:px-10">
+    <header className="fixed z-50 flex h-16 w-full items-center justify-between bg-white px-4 font-bold text-black shadow-md md:px-10">
       <Link
         to="/"
-        className="tracking-widest font-bold text-2xl"
+        className="text-2xl font-bold tracking-widest"
         aria-label="Home"
       >
         Fast Food Co.
@@ -50,12 +50,14 @@ const Header = () => {
         </button>
       </div>
 
-      <nav className="hidden md:flex pr-8 relative">
+      <nav className="relative hidden pr-8 md:flex">
         <ul className="flex items-center space-x-7">
           <li className="flex items-center">{isOnline ? "🟢" : "🔴"}</li>
           <NavItem to="/">Home</NavItem>
           <NavItem to="/contact">Contact Us</NavItem>
           <NavItem to="/grocery">Grocery</NavItem>
+          <NavItem to="/offers">Offers</NavItem>
+          <NavItem to="/help">Help</NavItem>
           <NavItem to="/login">Login</NavItem>
         </ul>
 
@@ -71,7 +73,7 @@ const Header = () => {
 
           {isCartHovered && totalCount > 0 && (
             <div
-              className="absolute top-11 right-20 bg-white shadow-lg p-2 border-t-2 border-t-orange-500"
+              className="absolute right-20 top-11 border-t-2 border-t-orange-500 bg-white p-2 shadow-lg"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
@@ -82,15 +84,15 @@ const Header = () => {
       </nav>
 
       {isOpen && (
-        <div className="fixed inset-0 bg-black z-40 flex flex-col items-center py-16">
+        <div className="fixed inset-0 z-40 flex flex-col items-center bg-black py-16">
           <button
             onClick={toggleMenu}
-            className="absolute top-5 right-5 text-white text-3xl"
+            className="absolute right-5 top-5 text-3xl text-white"
             aria-label="Close menu"
           >
             <FaTimes />
           </button>
-          <ul className="flex flex-col items-center space-y-8 text-white text-2xl">
+          <ul className="flex flex-col items-center space-y-8 text-2xl text-white">
             <li className="flex items-center">{isOnline ? "🟢" : "🔴"}</li>
             <NavItem to="/" onClick={toggleMenu}>
               Home
@@ -100,6 +102,12 @@ const Header = () => {
             </NavItem>
             <NavItem to="/grocery" onClick={toggleMenu}>
               Grocery
+            </NavItem>
+            <NavItem to="/offers" onClick={toggleMenu}>
+              Offers
+            </NavItem>
+            <NavItem to="/help" onClick={toggleMenu}>
+              Help
             </NavItem>
             <NavItem to="/login" onClick={toggleMenu}>
               Login
