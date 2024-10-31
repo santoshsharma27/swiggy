@@ -1,14 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const CreateOrder = () => {
-  const [firstName, setFirstName] = useState("");
+  const [userName, setUserName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [landmark, setLandmark] = useState("");
 
   const navigate = useNavigate();
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,7 +26,7 @@ const CreateOrder = () => {
   };
 
   const resetForm = () => {
-    setFirstName("");
+    setUserName("");
     setPhoneNumber("");
     setAddress("");
     setCity("");
@@ -37,18 +42,18 @@ const CreateOrder = () => {
         {/* First Name */}
         <div>
           <label
-            htmlFor="firstName"
+            htmlFor="name"
             className="block text-sm font-medium text-gray-700 mb-1"
           >
-            First Name
+            Name
           </label>
           <input
             type="text"
-            id="firstName"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            id="name"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
             required
-            placeholder="Enter your first name"
+            placeholder="Enter your name"
             className="mt-1 block w-full border border-gray-300 rounded-lg p-3 text-gray-900 shadow-sm focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50"
           />
         </div>

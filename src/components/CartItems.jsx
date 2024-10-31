@@ -95,7 +95,7 @@ function CartItems({ items }) {
         );
       })}
 
-      {/* Display Total Price and Order Button */}
+      {/* Display Total Price*/}
       <div className="p-4 border-t mt-6 text-right">
         <div className="text-lg font-bold">
           Total Amount: ₹{totalPrice.toFixed(2)}

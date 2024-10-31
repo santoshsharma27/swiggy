@@ -15,6 +15,11 @@ const OrderSuccess = () => {
     dispatch(clearCart());
   }, [dispatch]);
 
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="p-6 mt-8 text-center pt-32">
       <FaCheckCircle className="text-green-600 text-5xl mx-auto mb-4" />
