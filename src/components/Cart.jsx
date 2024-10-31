@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EmptyCart from "../ui/EmptyCart";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../utils/cartSlice";
@@ -23,6 +23,11 @@ function Cart() {
   function cancelClearCart() {
     setIsModalOpen(false);
   }
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   if (!cartItems.length) return <EmptyCart />;
 

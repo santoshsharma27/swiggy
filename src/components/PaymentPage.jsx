@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaCcVisa, FaCcMastercard, FaCcDiscover } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +16,11 @@ const PaymentPage = () => {
 
   const navigate = useNavigate();
   const totalPrice = useSelector(selectTotalPrice);
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
