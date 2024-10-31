@@ -1,15 +1,18 @@
-import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
+import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnline from "../utils/useOnlineStatus";
 import { SWIGGY_API } from "../utils/constant";
 
 const Home = () => {
-  const [allRestaurants, setAllfRestaurants] = useState([]);
+  const [allRestaurants, setAllRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [fetchError, setFetchError] = useState("");
+  const [searchError, setSearchError] = useState("");
+
+  const isOnline = useOnline();
 
   useEffect(() => {
     fetchData();
@@ -18,103 +21,122 @@ const Home = () => {
   const fetchData = async () => {
     try {
       const res = await fetch(SWIGGY_API);
-      if (!res.ok) {
-        throw new Error("Something went wrong with fetching restaurants");
-      }
+      if (!res.ok) throw new Error("Error fetching restaurants.");
 
       const json = await res.json();
-      const resData = checkJsonData(json);
+      const restaurantData = extractRestaurants(json);
 
-      setAllfRestaurants(resData);
-      setFilteredRestaurants(resData);
+      setAllRestaurants(restaurantData);
+      setFilteredRestaurants(restaurantData);
+      setFetchError("");
     } catch (error) {
-      console.error(error);
-      setErrorMessage("Failed to load restaurants. Please try again later.");
+      console.error("Fetch Error:", error);
+      setFetchError("Failed to load restaurants. Please try again later.");
     }
   };
 
-  const checkJsonData = (jsonData) => {
-    for (let i = 0; i < jsonData?.data?.cards.length; i++) {
-      let checkData =
-        jsonData?.data?.cards[i]?.card?.card?.gridElements?.infoWithStyle
-          ?.restaurants;
-      if (checkData !== undefined) {
-        return checkData;
-      }
+  const extractRestaurants = (json) => {
+    for (let card of json?.data?.cards || []) {
+      const restaurants =
+        card?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+      if (restaurants) return restaurants;
     }
     return [];
   };
 
-  const isOnline = useOnline();
+  // Debounce Logic for Search Input
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      handleSearch(searchText);
+    }, 300);
 
-  if (!isOnline)
-    return <h1 className="p-10 m-10">Please check internet Connection...</h1>;
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchText]);
 
-  const handleSearchChange = (e) => {
-    const value = e.target.value;
-    setSearchText(value);
-
-    if (value === "") {
+  const handleSearch = (value) => {
+    if (value.trim() === "") {
       setFilteredRestaurants(allRestaurants);
-      setErrorMessage("");
+      setSearchError("");
     } else {
-      const filtered = allRestaurants.filter((res) =>
-        res?.info?.name.toLowerCase().includes(value.toLowerCase())
+      const filtered = allRestaurants.filter((restaurant) =>
+        restaurant?.info?.name.toLowerCase().includes(value.toLowerCase()),
       );
 
       setFilteredRestaurants(filtered);
-
-      if (filtered.length === 0) {
-        setErrorMessage("No matching restaurants found.");
-      } else {
-        setErrorMessage("");
-      }
+      setSearchError(
+        filtered.length === 0
+          ? "Oops! It seems there are no restaurants matching that name. Discover something new instead!"
+          : "",
+      );
     }
   };
 
-  if (!allRestaurants) return null;
+  const filterTopRated = () => {
+    const topRatedRestaurants = allRestaurants.filter(
+      (restaurant) => restaurant?.info?.avgRating > 4.3,
+    );
+    setFilteredRestaurants(topRatedRestaurants);
+    setSearchText("");
+    setSearchError(
+      topRatedRestaurants.length === 0 ? "No top-rated restaurants found." : "",
+    );
+  };
+
+  if (!isOnline) {
+    return (
+      <h1 className="m-10 p-10 text-center">
+        Please check your internet connection.
+      </h1>
+    );
+  }
 
   return (
     <div>
-      <div className="flex flex-col sm:flex-row items-center justify-center sm:space-x-4 space-y-4 sm:space-y-0 pt-20">
-        <div className="flex justify-center w-full sm:w-auto px-4 sm:px-0">
+      <div className="flex flex-col items-center justify-center space-y-4 pt-20 sm:flex-row sm:space-x-4 sm:space-y-0">
+        <div className="flex w-full justify-center px-4 sm:w-auto sm:px-0">
           <input
-            className="border border-solid w-full sm:w-[350px] max-w-[90%] rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
+            className="w-full max-w-[90%] rounded-full border border-solid px-4 py-2 text-sm transition-all focus:outline-none focus:ring-2 focus:ring-blue-400 sm:w-[350px]"
             type="text"
             placeholder="Search restaurants..."
             value={searchText}
-            onChange={handleSearchChange}
+            onChange={(e) => setSearchText(e.target.value)}
           />
         </div>
         <div className="flex space-x-4">
           <button
-            className="bg-gray-100 px-6 py-3 rounded-full font-semibold text-gray-800 hover:bg-gray-200 transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-gray-300"
-            onClick={() => {
-              const filteredList = allRestaurants.filter(
-                (res) => res?.info?.avgRating > 4.3
-              );
-              setFilteredRestaurants(filteredList);
-            }}
+            className="rounded-full bg-gray-100 px-6 py-3 font-semibold text-gray-800 transition-colors duration-300 ease-in-out hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300"
+            onClick={filterTopRated}
           >
             Top Rated Restaurants
           </button>
         </div>
       </div>
-      {errorMessage && (
-        <p className="text-red-500 text-center pt-10">{errorMessage}</p>
+
+      {fetchError && (
+        <p className="pt-10 text-center text-red-500">{fetchError}</p>
       )}
-      {allRestaurants.length === 0 ? (
+      {searchError && (
+        <p className="pt-10 text-center text-red-500">{searchError}</p>
+      )}
+
+      {allRestaurants.length === 0 && !fetchError ? (
         <Shimmer />
       ) : (
         <div className="flex flex-wrap items-center justify-center pt-6">
-          {filteredRestaurants.map((restaurant) => (
-            <Link
-              key={restaurant?.info.id}
-              to={"/restaurants/" + restaurant?.info?.id}
-            >
-              <RestaurantCard resData={restaurant?.info} />
-            </Link>
-          ))}
+          {filteredRestaurants.length > 0
+            ? filteredRestaurants.map((restaurant) => (
+                <Link
+                  key={restaurant?.info.id}
+                  to={"/restaurants/" + restaurant?.info?.id}
+                >
+                  <RestaurantCard resData={restaurant?.info} />
+                </Link>
+              ))
+            : !searchError && (
+                <p className="pt-10 text-center text-gray-500">
+                  No restaurants available at the moment.
+                </p>
+              )}
         </div>
       )}
     </div>
