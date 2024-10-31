@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -8,6 +8,10 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   // Determine the current form mode based on URL
   const isLogin = location.pathname === "/login";
@@ -53,15 +57,15 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
-        <h2 className="text-2xl font-bold text-center text-gray-700 mb-6">
+    <div className="flex min-h-screen items-center justify-center bg-gray-100">
+      <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
+        <h2 className="mb-6 text-center text-2xl font-bold text-gray-700">
           {isLogin ? "Login to Your Account" : "Create an Account"}
         </h2>
 
         <form onSubmit={formik.handleSubmit}>
           {error && (
-            <div className="text-red-600 text-center font-medium mb-4">
+            <div className="mb-4 text-center font-medium text-red-600">
               {error}
             </div>
           )}
@@ -69,7 +73,7 @@ const LoginPage = () => {
           {/* Email Input */}
           <div className="mb-4">
             <label
-              className="block text-gray-600 font-semibold mb-2"
+              className="mb-2 block font-semibold text-gray-600"
               htmlFor="email"
             >
               Email Address
@@ -81,7 +85,7 @@ const LoginPage = () => {
               value={formik.values.email}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+              className={`w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2 ${
                 formik.touched.email && formik.errors.email
                   ? "border-red-500 focus:ring-red-500"
                   : "border-gray-300 focus:ring-blue-500"
@@ -89,14 +93,14 @@ const LoginPage = () => {
               placeholder="Enter your email"
             />
             {formik.touched.email && formik.errors.email && (
-              <p className="text-red-500 text-sm mt-1">{formik.errors.email}</p>
+              <p className="mt-1 text-sm text-red-500">{formik.errors.email}</p>
             )}
           </div>
 
           {/* Password Input */}
           <div className="mb-4">
             <label
-              className="block text-gray-600 font-semibold mb-2"
+              className="mb-2 block font-semibold text-gray-600"
               htmlFor="password"
             >
               Password
@@ -108,7 +112,7 @@ const LoginPage = () => {
               value={formik.values.password}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+              className={`w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2 ${
                 formik.touched.password && formik.errors.password
                   ? "border-red-500 focus:ring-red-500"
                   : "border-gray-300 focus:ring-blue-500"
@@ -116,7 +120,7 @@ const LoginPage = () => {
               placeholder="Enter your password"
             />
             {formik.touched.password && formik.errors.password && (
-              <p className="text-red-500 text-sm mt-1">
+              <p className="mt-1 text-sm text-red-500">
                 {formik.errors.password}
               </p>
             )}
@@ -126,7 +130,7 @@ const LoginPage = () => {
           {!isLogin && (
             <div className="mb-6">
               <label
-                className="block text-gray-600 font-semibold mb-2"
+                className="mb-2 block font-semibold text-gray-600"
                 htmlFor="confirmPassword"
               >
                 Confirm Password
@@ -138,7 +142,7 @@ const LoginPage = () => {
                 value={formik.values.confirmPassword}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+                className={`w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2 ${
                   formik.touched.confirmPassword &&
                   formik.errors.confirmPassword
                     ? "border-red-500 focus:ring-red-500"
@@ -148,7 +152,7 @@ const LoginPage = () => {
               />
               {formik.touched.confirmPassword &&
                 formik.errors.confirmPassword && (
-                  <p className="text-red-500 text-sm mt-1">
+                  <p className="mt-1 text-sm text-red-500">
                     {formik.errors.confirmPassword}
                   </p>
                 )}
@@ -158,7 +162,7 @@ const LoginPage = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className={`w-full py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+            className={`w-full rounded-md bg-blue-600 py-2 font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
               loading ? "cursor-not-allowed opacity-50" : ""
             }`}
             disabled={loading}
@@ -174,8 +178,8 @@ const LoginPage = () => {
         </form>
 
         {/* Link to Toggle Between Login and Signup */}
-        <div className="text-center mt-6">
-          <p className="text-gray-500 text-sm">
+        <div className="mt-6 text-center">
+          <p className="text-sm text-gray-500">
             {isLogin ? "Don’t have an account?" : "Already have an account?"}{" "}
             <button
               className="text-blue-600 hover:underline"
