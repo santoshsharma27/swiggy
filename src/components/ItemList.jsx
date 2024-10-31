@@ -14,7 +14,6 @@ function ItemList({ items, setNotification }) {
   const cartItems = useSelector((store) => store.cart.cart);
   const [itemCounts, setItemCounts] = useState({});
 
-  // Initialize item counts from the cart
   useEffect(() => {
     const counts = {};
     cartItems.forEach((item) => {
@@ -37,7 +36,7 @@ function ItemList({ items, setNotification }) {
     setNotification({ type: "add", message: "Item added to cart!" });
     setTimeout(() => {
       setNotification(null);
-    }, 500);
+    }, 1000);
   }
 
   function deleteHandler(item) {
@@ -51,7 +50,7 @@ function ItemList({ items, setNotification }) {
         [itemId]: currentCount - 1,
       }));
     } else if (currentCount === 1) {
-      dispatch(deleteItem(itemId)); // Remove the item from the cart
+      dispatch(deleteItem(itemId));
       setItemCounts((prevCounts) => ({
         ...prevCounts,
         [itemId]: 0,
@@ -60,61 +59,66 @@ function ItemList({ items, setNotification }) {
     setNotification({ type: "delete", message: "Item removed from cart!" });
     setTimeout(() => {
       setNotification(null);
-    }, 500);
+    }, 1000);
   }
 
   return (
-    <div className="space-y-6 p-4 relative">
+    <div className="grid gap-8 p-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
       {items?.map((item) => {
         const itemId = item.card.info.id;
         const currentCount = itemCounts[itemId] || 0;
 
         return (
           <div
-            className="flex flex-col md:flex-row items-center justify-between p-4 bg-white shadow-lg rounded-lg hover:shadow-md"
+            className="relative flex flex-col items-center justify-between p-4 bg-gray-100 shadow-md rounded-lg hover:shadow-lg transition-transform transform hover:-translate-y-1"
             key={itemId}
-            style={{ minHeight: "160px" }}
           >
-            <div className="flex-1 text-left md:w-3/5">
-              <div className="font-bold text-lg text-gray-800">
+            <img
+              className="w-full h-48 object-cover rounded-md mb-3"
+              src={CDN_URL + item?.card?.info?.imageId}
+              alt={item?.card?.info?.name}
+            />
+            <div className="w-full text-left">
+              <h3 className="text-lg font-semibold text-gray-800">
                 {item?.card?.info?.name}
+              </h3>
+              <div className="flex items-center justify-between mt-1 text-base">
+                <span className="text-gray-700 font-bold">
+                  ₹
+                  {item.card.info.price
+                    ? item.card.info.price / 100
+                    : item.card.info.defaultPrice / 100}
+                </span>
+                {/* Conditionally render rating only if it exists */}
+                {item.card.info.ratings?.aggregatedRating?.rating && (
+                  <span className="flex items-center bg-green-500 text-white text-xs px-2 py-1 rounded-md">
+                    ✭ {item.card.info.ratings.aggregatedRating.rating}
+                  </span>
+                )}
               </div>
-              <span className="block text-sm text-gray-500 mt-1">
-                ₹
-                {item.card.info.price
-                  ? item.card.info.price / 100
-                  : item.card.info.defaultPrice / 100}
-              </span>
-              <p className="text-sm text-gray-600 mt-2">
-                {item.card.info.description}
-              </p>
             </div>
-
-            <div className="flex flex-col md:flex-row items-center md:w-2/5 mt-4 md:mt-0 justify-around">
-              <img
-                className="w-32 h-24 object-cover rounded-md mb-4 md:mb-0 md:mr-4 shadow-sm"
-                src={CDN_URL + item?.card?.info?.imageId}
-                alt={item?.card?.info?.name}
-              />
-              <div className="flex items-center space-x-2">
-                {currentCount > 0 && (
-                  <button
-                    className="w-10 h-10 flex justify-center items-center border border-red-500 text-red-500 font-semibold rounded-md transition-colors hover:bg-red-500 hover:text-white"
-                    onClick={() => deleteHandler(item)}
-                  >
-                    -
-                  </button>
-                )}
-                {currentCount > 0 && (
-                  <span className="text-lg font-semibold">{currentCount}</span>
-                )}
+            <div className="flex items-center justify-center mt-3 w-full">
+              {currentCount > 0 && (
                 <button
-                  className="w-10 h-10 flex justify-center items-center border border-green-500 text-green-500 font-semibold rounded-md transition-colors hover:bg-green-500 hover:text-white"
-                  onClick={() => addHandler(item)}
+                  className="flex-1 py-2 bg-red-500 text-white font-semibold rounded-l-md hover:bg-red-600"
+                  onClick={() => deleteHandler(item)}
                 >
-                  +
+                  -
                 </button>
-              </div>
+              )}
+              {currentCount > 0 && (
+                <span className="px-3 text-lg font-semibold">
+                  {currentCount}
+                </span>
+              )}
+              <button
+                className={`flex-1 py-2 ${
+                  currentCount > 0 ? "rounded-r-md" : "rounded-md"
+                } bg-green-500 text-white font-semibold hover:bg-green-600`}
+                onClick={() => addHandler(item)}
+              >
+                +
+              </button>
             </div>
           </div>
         );
