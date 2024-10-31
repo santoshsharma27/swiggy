@@ -43,7 +43,7 @@ function CartItems({ items }) {
         [itemId]: currentCount - 1,
       }));
     } else if (currentCount === 1) {
-      dispatch(deleteItem(itemId)); // Remove the item from the cart
+      dispatch(deleteItem(itemId));
       setItemCounts((prevCounts) => ({
         ...prevCounts,
         [itemId]: 0,
@@ -52,40 +52,42 @@ function CartItems({ items }) {
   }
 
   return (
-    <div className="space-y-6 p-4">
+    <div className="space-y-6 p-4 bg-gray-100">
       {items?.map((item) => {
         const itemId = item.card.info.id;
         const currentCount = itemCounts[itemId] || 0;
 
         return (
           <div
-            className="p-4 border-b flex flex-col md:flex-row items-center justify-between bg-white shadow-lg rounded-lg"
+            className="p-4 border-b flex items-center justify-between bg-white shadow rounded-lg transition-all hover:shadow-md"
             key={itemId}
           >
-            {/* Item Name and Price */}
-            <div className="flex-1 text-left w-full md:w-3/5">
-              <div className="font-bold text-lg text-gray-800">
+            {/* Item Details */}
+            <div className="flex-1 text-left">
+              <h3 className="text-lg font-semibold text-gray-800">
                 {item?.card?.info?.name}
-              </div>
-              <span className="block text-sm text-gray-600 mt-1">
+              </h3>
+              <div className="text-sm text-gray-600 mt-1">
                 ₹
                 {item.card.info.price
                   ? item.card.info.price / 100
                   : item.card.info.defaultPrice / 100}
-              </span>
+              </div>
             </div>
 
-            {/* Quantity Display and Buttons */}
-            <div className="flex items-center justify-center space-x-3 mt-4 md:mt-0 md:w-2/5">
+            {/* Quantity Controls */}
+            <div className="flex items-center space-x-3">
               <button
-                className="px-4 py-2 border border-red-500 text-red-500 font-semibold rounded-md transition-colors hover:bg-red-500 hover:text-white"
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-red-500 text-white font-bold hover:bg-red-600"
                 onClick={() => deleteHandler(item)}
               >
                 -
               </button>
-              <span className="text-lg font-semibold">{currentCount}</span>
+              <span className="text-lg font-semibold text-gray-800">
+                {currentCount}
+              </span>
               <button
-                className="px-4 py-2 border border-green-500 text-green-500 font-semibold rounded-md transition-colors hover:bg-green-500 hover:text-white"
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-green-500 text-white font-bold hover:bg-green-600"
                 onClick={() => addHandler(item)}
               >
                 +
@@ -95,9 +97,9 @@ function CartItems({ items }) {
         );
       })}
 
-      {/* Display Total Price*/}
-      <div className="p-4 border-t mt-6 text-right">
-        <div className="text-lg font-bold">
+      {/* Total Price Display */}
+      <div className="p-4 border-t mt-6 bg-white shadow rounded-lg text-right">
+        <div className="text-xl font-bold text-gray-800">
           Total Amount: ₹{totalPrice.toFixed(2)}
         </div>
       </div>
