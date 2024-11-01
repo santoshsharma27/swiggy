@@ -39,7 +39,7 @@ function HoverCart({ setIsCartHovered }) {
   }, [cartItems]);
 
   return (
-    <div className="space-y-6 p-4 rounded-lg">
+    <div className="space-y-6 rounded-lg p-4">
       {cartItems.map((item) => {
         const itemId = item.card.info.id;
         const itemQuantity = itemCounts[itemId] || 1;
@@ -48,16 +48,16 @@ function HoverCart({ setIsCartHovered }) {
 
         return (
           <div
-            className="p-4 border-b flex items-center justify-between bg-gray-50 rounded-lg"
+            className="flex items-center justify-between rounded-lg border-b bg-gray-50 p-4"
             key={itemId}
           >
-            <div className="flex items-center w-full">
+            <div className="flex w-full items-center">
               <img
-                className="w-16 h-16 object-cover rounded-md shadow-sm mr-4"
+                className="mr-4 h-16 w-16 rounded-md object-cover shadow-sm"
                 src={CDN_URL + item.card.info.imageId}
                 alt={item.card.info.name}
               />
-              <div className="flex-1 text-xs flex justify-evenly items-center gap-12">
+              <div className="flex flex-1 items-center justify-evenly gap-12 text-xs">
                 <div>
                   {item.card.info.name} x {itemQuantity}
                 </div>
@@ -68,16 +68,16 @@ function HoverCart({ setIsCartHovered }) {
         );
       })}
 
-      <div className="pt-2 border-t mt-6">
+      <div className="mt-6 border-t pt-2">
         {cartItems.length > 0 && (
           <>
-            <div className="flex justify-between items-center text-gray-800">
+            <div className="flex items-center justify-between text-gray-800">
               <span>Sub total:</span>
               <span>₹{totalPrice.toFixed(2)}</span>
             </div>
-            <div className="flex justify-center mt-4">
+            <div className="mt-4 flex justify-center">
               <button
-                className="px-6 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors uppercase"
+                className="rounded-md bg-orange-500 px-6 py-2 uppercase text-white transition-colors hover:bg-orange-600"
                 onClick={handleCheckout}
               >
                 Checkout

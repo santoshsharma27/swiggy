@@ -4,7 +4,6 @@ import Contact from "./components/Contact";
 import Error from "./ui/Error";
 import Cart from "./components/Cart";
 import RestaurantMenu from "./components/RestaurantMenu";
-import Shimmer from "./components/Shimmer";
 import CreateOrder from "./components/CreateOrder";
 import OrderSuccess from "./components/OrderSuccess";
 import PaymentPage from "./components/PaymentPage";
@@ -13,6 +12,7 @@ import Home from "./components/Home";
 import LoginPage from "./components/LoginPage";
 import Offers from "./components/Offers";
 import Help from "./components/Help";
+import Loader from "./ui/Loader";
 // import Grocery from "./components/Grocery";
 // import About from "./components/About";
 
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
       {
         path: "/about",
         element: (
-          <Suspense fallback={<Shimmer />}>
+          <Suspense fallback={<Loader />}>
             <About />
           </Suspense>
         ),
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
       {
         path: "/grocery",
         element: (
-          <Suspense fallback={<Shimmer />}>
+          <Suspense fallback={<Loader />}>
             <Grocery />
           </Suspense>
         ),
