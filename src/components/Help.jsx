@@ -65,7 +65,7 @@ const HelpPage = () => {
           Email: <span className="text-blue-500">santosh37kr@gmail.com</span>
         </p>
         <p className="text-gray-600">
-          Phone: <span className="text-blue-500">+91 (700) 3189-453</span>
+          Phone: <span className="text-blue-500">+91 7003189453</span>
         </p>
       </div>
     </div>
