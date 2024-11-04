@@ -27,53 +27,57 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed z-50 flex h-16 w-full items-center justify-between bg-white px-4 font-bold text-black shadow-md md:px-10">
+    <header className="fixed z-50 flex h-16 w-full items-center justify-between bg-white px-4 font-bold text-black shadow-md sm:justify-evenly md:px-10">
       <Link
         to="/"
-        className="text-2xl font-bold tracking-widest"
+        className="xs:text-xl whitespace-nowrap text-lg font-bold tracking-widest sm:text-2xl md:text-3xl"
         aria-label="Home"
       >
         Fast Food Co.
       </Link>
 
-      <div className="flex items-center space-x-4 md:hidden">
+      <div className="flex items-center justify-between space-x-4 md:hidden">
         <NavLink
           to="/cart"
           className="flex items-center space-x-1"
           aria-label="Cart"
         >
-          <span className="font-medium">{totalCount}</span>
-          <HiShoppingCart size={24} />
+          <span className="text-sm font-medium">
+            {totalCount > 0 ? totalCount : ""}
+          </span>
+          <HiShoppingCart size={20} />
         </NavLink>
         <button onClick={toggleMenu} aria-label="Toggle Menu">
-          {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+          {isOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
         </button>
       </div>
 
       <nav className="relative hidden pr-8 md:flex">
-        <ul className="flex items-center space-x-7">
-          <li className="flex items-center">{isOnline ? "🟢" : "🔴"}</li>
+        <div className="flex items-center justify-between space-x-4 whitespace-nowrap lg:space-x-7">
+          <p className="flex items-center">{isOnline ? "🟢" : "🔴"}</p>
           <NavItem to="/">Home</NavItem>
           <NavItem to="/contact">Contact Us</NavItem>
           <NavItem to="/grocery">Grocery</NavItem>
           <NavItem to="/offers">Offers</NavItem>
           <NavItem to="/help">Help</NavItem>
           <NavItem to="/login">Login</NavItem>
-        </ul>
+        </div>
 
         <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           <NavLink
             to="/cart"
-            className="flex items-center space-x-2 px-8 hover:text-orange-500"
+            className="flex items-center space-x-2 px-4 hover:text-orange-500 md:px-4"
             aria-label="Cart"
           >
-            <span className="font-bold">{totalCount}</span>
-            <HiShoppingCart />
+            <span className="font-bold">
+              {totalCount > 0 ? totalCount : ""}
+            </span>
+            <HiShoppingCart size={20} />
           </NavLink>
 
           {isCartHovered && totalCount > 0 && (
             <div
-              className="absolute right-20 top-11 border-t-2 border-t-orange-500 bg-white p-2 shadow-lg"
+              className="absolute right-4 top-12 border-t-2 border-t-orange-500 bg-white p-2 shadow-lg md:right-20 md:top-11"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
@@ -84,7 +88,7 @@ const Header = () => {
       </nav>
 
       {isOpen && (
-        <div className="fixed inset-0 z-40 flex flex-col items-center bg-black py-16">
+        <div className="fixed inset-0 z-40 flex flex-col items-center bg-black py-16 md:hidden">
           <button
             onClick={toggleMenu}
             className="absolute right-5 top-5 text-3xl text-white"
@@ -92,7 +96,7 @@ const Header = () => {
           >
             <FaTimes />
           </button>
-          <ul className="flex flex-col items-center space-y-8 text-2xl text-white">
+          <ul className="flex flex-col items-center space-y-8 text-xl text-white">
             <li className="flex items-center">{isOnline ? "🟢" : "🔴"}</li>
             <NavItem to="/" onClick={toggleMenu}>
               Home

@@ -18,6 +18,10 @@ const Home = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const fetchData = async () => {
     try {
       const res = await fetch(SWIGGY_API);

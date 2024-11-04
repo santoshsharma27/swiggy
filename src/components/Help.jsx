@@ -30,12 +30,12 @@ const HelpPage = () => {
 
   return (
     <div className="bg-gray-100 px-6 py-12 pt-24 md:px-12 lg:px-24">
-      <h1 className="mb-10 text-center text-4xl font-bold text-gray-800">
+      <h1 className="mb-10 text-center text-2xl font-bold text-gray-800 sm:text-4xl">
         Help & Support
       </h1>
 
       <div className="mb-10">
-        <h2 className="mb-4 text-2xl font-semibold text-gray-800">
+        <h2 className="mb-4 text-xl font-semibold text-gray-800 sm:text-2xl">
           Frequently Asked Questions
         </h2>
         <div className="space-y-4">

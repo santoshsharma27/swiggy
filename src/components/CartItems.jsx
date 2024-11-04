@@ -52,14 +52,14 @@ function CartItems({ items }) {
   }
 
   return (
-    <div className="space-y-6 p-4 bg-gray-100">
+    <div className="space-y-6 bg-gray-100 p-4">
       {items?.map((item) => {
         const itemId = item.card.info.id;
         const currentCount = itemCounts[itemId] || 0;
 
         return (
           <div
-            className="p-4 border-b flex items-center justify-between bg-white shadow rounded-lg transition-all hover:shadow-md"
+            className="flex items-center justify-between rounded-lg border-b bg-white p-4 shadow transition-all hover:shadow-md"
             key={itemId}
           >
             {/* Item Details */}
@@ -67,7 +67,7 @@ function CartItems({ items }) {
               <h3 className="text-lg font-semibold text-gray-800">
                 {item?.card?.info?.name}
               </h3>
-              <div className="text-sm text-gray-600 mt-1">
+              <div className="mt-1 text-sm text-gray-600">
                 ₹
                 {item.card.info.price
                   ? item.card.info.price / 100
@@ -78,7 +78,7 @@ function CartItems({ items }) {
             {/* Quantity Controls */}
             <div className="flex items-center space-x-3">
               <button
-                className="w-10 h-10 flex items-center justify-center rounded-full bg-red-500 text-white font-bold hover:bg-red-600"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-red-500 font-bold text-white hover:bg-red-600"
                 onClick={() => deleteHandler(item)}
               >
                 -
@@ -87,7 +87,7 @@ function CartItems({ items }) {
                 {currentCount}
               </span>
               <button
-                className="w-10 h-10 flex items-center justify-center rounded-full bg-green-500 text-white font-bold hover:bg-green-600"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-green-500 font-bold text-white hover:bg-green-600"
                 onClick={() => addHandler(item)}
               >
                 +
@@ -98,7 +98,7 @@ function CartItems({ items }) {
       })}
 
       {/* Total Price Display */}
-      <div className="p-4 border-t mt-6 bg-white shadow rounded-lg text-right">
+      <div className="mt-6 rounded-lg border-t bg-white p-4 text-right shadow">
         <div className="text-xl font-bold text-gray-800">
           Total Amount: ₹{totalPrice.toFixed(2)}
         </div>
