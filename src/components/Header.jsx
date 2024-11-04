@@ -27,7 +27,7 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed z-50 flex h-16 w-full items-center justify-between bg-white px-4 font-bold text-black shadow-md md:px-10">
+    <header className="fixed z-50 flex h-16 w-full items-center justify-between bg-white px-4 font-bold text-black shadow-md sm:justify-evenly md:px-10">
       <Link
         to="/"
         className="xs:text-xl whitespace-nowrap text-lg font-bold tracking-widest sm:text-2xl md:text-3xl"

@@ -3,6 +3,7 @@ import { Linkedin_URL } from "../utils/constant";
 
 function Footer() {
   const [isVisible, setIsVisible] = useState(false);
+  const year = new Date().getFullYear();
 
   // Show button when scrolled down
   const toggleVisibility = () => {
@@ -26,9 +27,9 @@ function Footer() {
   }, []);
 
   return (
-    <footer className="flex flex-col sm:flex-row items-center justify-center py-5 bg-white font-semibold relative">
+    <footer className="relative flex flex-col items-center justify-center bg-white py-5 font-semibold sm:flex-row">
       {/* Top Border */}
-      <div className="absolute top-0 left-0 right-0 h-1 border-b shadow-sm" />
+      <div className="absolute left-0 right-0 top-0 h-1 border-b shadow-sm" />
 
       <span className="px-1">Created By</span>
       <a
@@ -40,12 +41,12 @@ function Footer() {
       >
         Santosh Kumar Sharma
       </a>
-      <span className="px-1">&copy; 2024 All rights reserved</span>
+      <span className="px-1">&copy; {year} All rights reserved</span>
 
       {/* Scroll to Top Button for Mobile */}
       {isVisible && (
         <button
-          className="fixed bottom-5 right-5 p-3 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 transition duration-300 block sm:hidden"
+          className="fixed bottom-5 right-5 block rounded-full bg-red-500 p-3 text-white shadow-md transition duration-300 hover:bg-red-600 sm:hidden"
           onClick={scrollToTop}
           title="Scroll to Top"
         >

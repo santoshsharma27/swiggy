@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import { selectTotalPrice } from "../utils/cartSlice";
-import { CDN_URL } from "../utils/constant";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -39,7 +38,7 @@ function HoverCart({ setIsCartHovered }) {
   }, [cartItems]);
 
   return (
-    <div className="space-y-6 rounded-lg p-4">
+    <div className="space-y-6 p-2 pt-4">
       {cartItems.map((item) => {
         const itemId = item.card.info.id;
         const itemQuantity = itemCounts[itemId] || 1;
@@ -48,20 +47,22 @@ function HoverCart({ setIsCartHovered }) {
 
         return (
           <div
-            className="flex items-center justify-between rounded-lg border-b bg-gray-50 p-4"
+            className="flex items-center justify-between rounded-lg"
             key={itemId}
           >
             <div className="flex w-full items-center">
-              <img
+              {/* <img
                 className="mr-4 h-16 w-16 rounded-md object-cover shadow-sm"
                 src={CDN_URL + item.card.info.imageId}
                 alt={item.card.info.name}
-              />
-              <div className="flex flex-1 items-center justify-evenly gap-12 text-xs">
+              /> */}
+              <div className="flex flex-1 items-center justify-between gap-12 text-xs">
                 <div>
                   {item.card.info.name} x {itemQuantity}
                 </div>
-                <div>₹{(itemPrice * itemQuantity).toFixed(2)}</div>
+                <div className="font-semibold">
+                  ₹{(itemPrice * itemQuantity).toFixed(2)}
+                </div>
               </div>
             </div>
           </div>
@@ -77,7 +78,7 @@ function HoverCart({ setIsCartHovered }) {
             </div>
             <div className="mt-4 flex justify-center">
               <button
-                className="rounded-md bg-orange-500 px-6 py-2 uppercase text-white transition-colors hover:bg-orange-600"
+                className="rounded-md bg-orange-500 px-32 py-2 uppercase text-white transition-colors hover:bg-orange-600"
                 onClick={handleCheckout}
               >
                 Checkout

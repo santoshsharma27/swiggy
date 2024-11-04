@@ -9,7 +9,7 @@ const Offers = () => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center px-6 py-12 md:px-12 lg:px-24">
       <div className="rounded-lg bg-white p-10 text-center">
-        <h2 className="mb-4 text-4xl font-bold text-gray-800">
+        <h2 className="mb-4 text-2xl font-bold text-gray-800 sm:text-4xl">
           Currently, we don’t have any active offers
         </h2>
         <p className="mb-6 text-gray-600">
