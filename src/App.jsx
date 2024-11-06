@@ -4,7 +4,7 @@ import Contact from "./components/Contact";
 import Error from "./ui/Error";
 import Cart from "./components/Cart";
 import RestaurantMenu from "./components/RestaurantMenu";
-import CreateOrder from "./components/CreateOrder";
+import Address from "./components/Address";
 import OrderSuccess from "./components/OrderSuccess";
 import PaymentPage from "./components/PaymentPage";
 import AppLayout from "./ui/AppLayout";
@@ -57,8 +57,8 @@ const router = createBrowserRouter([
         element: <RestaurantMenu />,
       },
       {
-        path: "/order/new",
-        element: <CreateOrder />,
+        path: "/checkout",
+        element: <Address />,
       },
       {
         path: "/payment",

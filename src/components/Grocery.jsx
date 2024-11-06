@@ -1,5 +1,56 @@
 import { useEffect, useState } from "react";
-import { FaShoppingCart } from "react-icons/fa"; // Import a cart icon for better UI
+import { FaShoppingCart } from "react-icons/fa";
+
+const products = [
+  {
+    id: 1,
+    name: "Apples",
+    price: 120.0,
+    image: "/images/apples.png",
+    category: "Fruits",
+    soldOut: true, // Mark as sold out
+  },
+  {
+    id: 2,
+    name: "Bananas",
+    price: 60.0,
+    image: "/images/bananas.png",
+    category: "Fruits",
+    soldOut: true, // Mark as sold out
+  },
+  {
+    id: 3,
+    name: "Carrots",
+    price: 65.0,
+    image: "/images/carrots.png",
+    category: "Vegetables",
+    soldOut: true, // Mark as sold out
+  },
+  {
+    id: 4,
+    name: "Milk",
+    price: 30.0,
+    image: "/images/milk.png",
+    category: "Dairy",
+    soldOut: true, // Mark as sold out
+  },
+  {
+    id: 5,
+    name: "Eggs",
+    price: 8.0,
+    image: "/images/eggs.png",
+    category: "Dairy",
+    soldOut: true, // Mark as sold out
+  },
+  {
+    id: 6,
+    name: "Bread",
+    price: 40.0,
+    image: "/images/bread.png",
+    category: "Bakery",
+    soldOut: true, // Mark as sold out
+  },
+];
 
 const Grocery = () => {
   const [cart, setCart] = useState({});
@@ -8,57 +59,6 @@ const Grocery = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  const products = [
-    {
-      id: 1,
-      name: "Apples",
-      price: 120.0,
-      image: "/images/apples.png",
-      category: "Fruits",
-      soldOut: true, // Mark as sold out
-    },
-    {
-      id: 2,
-      name: "Bananas",
-      price: 60.0,
-      image: "/images/bananas.png",
-      category: "Fruits",
-      soldOut: true, // Mark as sold out
-    },
-    {
-      id: 3,
-      name: "Carrots",
-      price: 65.0,
-      image: "/images/carrots.png",
-      category: "Vegetables",
-      soldOut: true, // Mark as sold out
-    },
-    {
-      id: 4,
-      name: "Milk",
-      price: 30.0,
-      image: "/images/milk.png",
-      category: "Dairy",
-      soldOut: true, // Mark as sold out
-    },
-    {
-      id: 5,
-      name: "Eggs",
-      price: 8.0,
-      image: "/images/eggs.png",
-      category: "Dairy",
-      soldOut: true, // Mark as sold out
-    },
-    {
-      id: 6,
-      name: "Bread",
-      price: 40.0,
-      image: "/images/bread.png",
-      category: "Bakery",
-      soldOut: true, // Mark as sold out
-    },
-  ];
 
   const addToCart = (product) => {
     if (product.soldOut) return; // Prevent adding to cart if sold out
@@ -82,11 +82,11 @@ const Grocery = () => {
 
   return (
     <div className="container mx-auto p-6">
-      <div className="grid grid-cols-1 gap-8 pt-16 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-8 pt-16 md:grid-cols-2 lg:grid-cols-4">
         {products.map((product) => (
           <div
             key={product.id}
-            className="flex flex-col items-center rounded-lg border border-gray-200 p-4 shadow-lg"
+            className="flex flex-col items-center rounded-lg border border-gray-100 p-4 shadow-lg"
           >
             <img
               src={product.image}
@@ -125,7 +125,7 @@ const Grocery = () => {
       </div>
 
       {/* Cart Summary */}
-      <div className="mt-12 rounded-lg bg-white p-6 shadow-lg">
+      {/* <div className="mt-12 rounded-lg bg-white p-6 shadow-lg">
         <h2 className="mb-4 text-3xl font-bold text-gray-800">Shopping Cart</h2>
         {Object.keys(cart).length > 0 ? (
           <div className="space-y-4">
@@ -149,7 +149,7 @@ const Grocery = () => {
         ) : (
           <p className="text-gray-600">Your cart is empty</p>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

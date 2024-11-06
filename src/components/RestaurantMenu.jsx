@@ -26,20 +26,20 @@ const RestaurantMenu = () => {
     resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
       (c) =>
         c.card?.["card"]?.["@type"] ===
-        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
     );
 
   return (
-    <div className="text-center m-5 pt-24">
-      <h1 className="font-semibold text-2xl md:text-xl lg:text-2xl mb-2">
+    <div className="m-5 pt-24 text-center">
+      <h1 className="mb-2 text-2xl font-semibold md:text-xl lg:text-2xl">
         {name}
       </h1>
-      <p className="text-sm md:text-base lg:text-lg flex items-center justify-center font-semibold">
-        <span className="bg-green-600 rounded-full flex items-center justify-center w-6 h-6 text-white mr-1">
-          <span className="text-lg">✭</span>
+      <p className="flex items-center justify-center text-sm font-semibold md:text-base">
+        <span className="mr-1 flex h-4 w-4 items-center justify-center rounded-full bg-green-600 text-white">
+          <span className="text-sm">✭</span>
         </span>
         <span>{avgRating}</span>
-        <span className="text-gray-400 px-2">•</span>
+        <span className="px-2 text-gray-400">•</span>
         <span>{costForTwoMessage}</span>
       </p>
       <div className="mt-4 space-y-4">
@@ -47,7 +47,7 @@ const RestaurantMenu = () => {
           <RestaurantCategory
             curOpen={curOpen}
             onOpen={setCurOpen}
-            data={category?.card?.card}
+            menu={category?.card?.card}
             num={index}
             key={index}
           />

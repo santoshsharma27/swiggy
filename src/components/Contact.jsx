@@ -13,9 +13,10 @@ const ContactUs = () => {
   }, []);
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
@@ -25,12 +26,11 @@ const ContactUs = () => {
     // Perform form validation (basic)
     if (formData.name && formData.email && formData.message) {
       setSubmitted(true);
-      // Here you could send the data to an API or email service
     }
   };
 
   return (
-    <div className="mx-auto mt-12 max-w-2xl rounded-lg bg-white p-6 shadow-lg">
+    <div className="mx-auto mt-12 max-w-2xl p-10">
       <h2 className="mb-6 text-center text-3xl font-bold text-gray-800">
         Contact Us
       </h2>
@@ -56,7 +56,7 @@ const ContactUs = () => {
               onChange={handleChange}
               required
               placeholder="Enter your name"
-              className="mt-1 block w-full rounded-lg border border-gray-300 p-3 text-gray-900 shadow-sm focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              className="mt-1 block w-full rounded-lg border p-3 text-gray-900 shadow-sm focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50"
             />
           </div>
 

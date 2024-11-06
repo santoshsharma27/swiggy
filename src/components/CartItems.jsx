@@ -52,19 +52,19 @@ function CartItems({ items }) {
   }
 
   return (
-    <div className="space-y-6 bg-gray-100 p-4">
+    <div className="space-y-6">
       {items?.map((item) => {
         const itemId = item.card.info.id;
         const currentCount = itemCounts[itemId] || 0;
 
         return (
           <div
-            className="flex items-center justify-between rounded-lg border-b bg-white p-4 shadow transition-all hover:shadow-md"
+            className="flex items-center justify-between rounded-lg transition-all"
             key={itemId}
           >
             {/* Item Details */}
             <div className="flex-1 text-left">
-              <h3 className="text-lg font-semibold text-gray-800">
+              <h3 className="font-medium text-gray-800">
                 {item?.card?.info?.name}
               </h3>
               <div className="mt-1 text-sm text-gray-600">
@@ -98,9 +98,9 @@ function CartItems({ items }) {
       })}
 
       {/* Total Price Display */}
-      <div className="mt-6 rounded-lg border-t bg-white p-4 text-right shadow">
-        <div className="text-xl font-bold text-gray-800">
-          Total Amount: ₹{totalPrice.toFixed(2)}
+      <div className="mt-6 border-t border-black bg-white p-4 text-right">
+        <div className="text-base font-bold text-gray-800">
+          TO PAY: ₹{totalPrice.toFixed(2)}
         </div>
       </div>
     </div>

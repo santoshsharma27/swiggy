@@ -35,9 +35,9 @@ function Cart() {
     <div className="relative">
       {/* Apply blur to the background content when modal is open */}
       <div
-        className={`${isModalOpen ? "blur-sm" : ""} mt-10 w-full max-w-3xl mx-auto p-6 pt-16 bg-gray-50 rounded-lg shadow-lg`}
+        className={`${isModalOpen ? "blur-sm" : ""} mx-auto mt-10 w-full max-w-3xl rounded-lg p-6 pt-16 shadow-lg`}
       >
-        <h2 className="text-2xl font-semibold mb-6 text-gray-700">
+        <h2 className="mb-6 text-2xl font-semibold text-gray-700">
           Your Cart Items
         </h2>
 
@@ -45,16 +45,16 @@ function Cart() {
           <CartItems items={cartItems} />
         </div>
 
-        <div className="mt-8 flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-4 sm:space-y-0">
+        <div className="mt-8 flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
           <button
-            className="w-full sm:w-auto px-6 py-3 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition-colors duration-200"
+            className="w-full rounded-lg bg-red-500 px-6 py-3 font-semibold text-white transition-colors duration-200 hover:bg-red-600 sm:w-auto"
             onClick={handleClearCart}
           >
             Clear Cart
           </button>
           <Link
-            to="/order/new"
-            className="w-full sm:w-auto px-6 py-3 text-center bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition-colors duration-200"
+            to="/checkout"
+            className="w-full rounded-lg bg-blue-500 px-6 py-3 text-center font-semibold text-white transition-colors duration-200 hover:bg-blue-600 sm:w-auto"
           >
             Order Now
           </Link>
@@ -63,7 +63,7 @@ function Cart() {
 
       {/* Modal for confirmation */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <ConfirmModal
             isOpen={isModalOpen}
             onClose={cancelClearCart}
