@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const CreateOrder = () => {
+const Address = () => {
   const [userName, setUserName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
@@ -22,7 +22,7 @@ const CreateOrder = () => {
     setTimeout(() => {
       navigate("/payment");
       resetForm();
-    });
+    }, 1000);
   };
 
   const resetForm = () => {
@@ -34,16 +34,16 @@ const CreateOrder = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-8 mt-12 bg-white rounded-lg shadow-lg">
-      <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
+    <div className="mx-auto mt-12 max-w-lg rounded-lg p-8">
+      <h2 className="mb-8 text-center text-3xl font-bold text-gray-800">
         Place Your Order
       </h2>
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* First Name */}
+        {/* Name */}
         <div>
           <label
             htmlFor="name"
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="mb-1 block text-sm font-medium text-gray-700"
           >
             Name
           </label>
@@ -54,7 +54,7 @@ const CreateOrder = () => {
             onChange={(e) => setUserName(e.target.value)}
             required
             placeholder="Enter your name"
-            className="mt-1 block w-full border border-gray-300 rounded-lg p-3 text-gray-900 shadow-sm focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            className="mt-1 block w-full rounded-lg border border-gray-300 p-3 text-gray-900 shadow-sm focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50"
           />
         </div>
 
@@ -62,7 +62,7 @@ const CreateOrder = () => {
         <div>
           <label
             htmlFor="phoneNumber"
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="mb-1 block text-sm font-medium text-gray-700"
           >
             Phone Number
           </label>
@@ -75,7 +75,7 @@ const CreateOrder = () => {
             maxLength="10"
             required
             placeholder="Enter your phone number"
-            className="mt-1 block w-full border border-gray-300 rounded-lg p-3 text-gray-900 shadow-sm focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            className="mt-1 block w-full rounded-lg border border-gray-300 p-3 text-gray-900 shadow-sm focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50"
           />
         </div>
 
@@ -83,7 +83,7 @@ const CreateOrder = () => {
         <div>
           <label
             htmlFor="address"
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="mb-1 block text-sm font-medium text-gray-700"
           >
             Delivery Address
           </label>
@@ -94,7 +94,7 @@ const CreateOrder = () => {
             onChange={(e) => setAddress(e.target.value)}
             required
             placeholder="Enter your delivery address"
-            className="mt-1 block w-full border border-gray-300 rounded-lg p-3 text-gray-900 shadow-sm focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            className="mt-1 block w-full rounded-lg border border-gray-300 p-3 text-gray-900 shadow-sm focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50"
           />
         </div>
 
@@ -102,7 +102,7 @@ const CreateOrder = () => {
         <div>
           <label
             htmlFor="city"
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="mb-1 block text-sm font-medium text-gray-700"
           >
             City
           </label>
@@ -113,7 +113,7 @@ const CreateOrder = () => {
             onChange={(e) => setCity(e.target.value)}
             required
             placeholder="Enter your city name"
-            className="mt-1 block w-full border border-gray-300 rounded-lg p-3 text-gray-900 shadow-sm focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            className="mt-1 block w-full rounded-lg border border-gray-300 p-3 text-gray-900 shadow-sm focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50"
           />
         </div>
 
@@ -121,7 +121,7 @@ const CreateOrder = () => {
         <div>
           <label
             htmlFor="landmark"
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="mb-1 block text-sm font-medium text-gray-700"
           >
             Landmark
           </label>
@@ -131,20 +131,20 @@ const CreateOrder = () => {
             value={landmark}
             onChange={(e) => setLandmark(e.target.value)}
             placeholder="Enter a nearby landmark"
-            className="mt-1 block w-full border border-gray-300 rounded-lg p-3 text-gray-900 shadow-sm focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            className="mt-1 block w-full rounded-lg border border-gray-300 p-3 text-gray-900 shadow-sm focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50"
           />
         </div>
 
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full py-3 text-white font-bold bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-200 ease-in-out"
+          className="w-full rounded-lg bg-orange-500 py-3 font-bold text-white shadow-md transition-all duration-200 ease-in-out hover:bg-orange-600 focus:ring-4 focus:ring-orange-500 focus:ring-opacity-50"
         >
-          Deliver Here
+          SAVE ADDRESS & PROCEED TO PAY
         </button>
       </form>
     </div>
   );
 };
 
-export default CreateOrder;
+export default Address;

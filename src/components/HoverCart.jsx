@@ -11,13 +11,13 @@ function HoverCart({ setIsCartHovered }) {
   const location = useLocation();
 
   function handleCheckout() {
-    navigate("/order/new"); // Navigate to the order page
+    navigate("/checkout"); // Navigate to the order page
   }
 
   // Close hover cart automatically when on checkout page
   useEffect(() => {
     if (
-      location.pathname === "/order/new" ||
+      location.pathname === "/checkout" ||
       location.pathname === "/payment" ||
       location.pathname === "/cart" ||
       location.pathname === "/grocery" ||
