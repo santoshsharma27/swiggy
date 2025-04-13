@@ -6,3 +6,7 @@ export const calculateTotalPrice = (cart) => {
     return total + itemPrice * item.quantity;
   }, 0);
 };
+
+export const updateLocalStorage = (cart) => {
+  localStorage.setItem("cart", JSON.stringify(cart));
+};

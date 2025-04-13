@@ -3,18 +3,22 @@ import { Link } from "react-router-dom";
 
 const Offers = () => {
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
   }, []);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center px-6 py-12 md:px-12 lg:px-24">
       <div className="rounded-lg bg-white p-10 text-center">
         <h2 className="mb-4 text-2xl font-bold text-gray-800 sm:text-4xl">
-          Currently, we don’t have any active offers
+          Currently, we don&apos;t have any active offers
         </h2>
         <p className="mb-6 text-gray-600">
-          We're sorry, but there are no special offers running at the moment.
-          Please check back later for exciting deals and discounts!
+          We&apos;re sorry, but there are no special offers running at the
+          moment. Please check back later for exciting deals and discounts!
         </p>
         <p className="mb-8 text-sm text-gray-500">
           In the meantime, why not explore our delicious menu?

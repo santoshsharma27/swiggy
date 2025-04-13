@@ -9,19 +9,19 @@ const Error = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-5 px-4">
-      <div className="max-w-md text-center bg-white shadow-lg rounded-lg p-8">
-        <h1 className="text-4xl font-bold text-red-600 mb-4">Oops!!!</h1>
-        <h2 className="text-2xl font-semibold mb-4">Something went wrong!</h2>
-        <p className="text-gray-700 mb-4">
-          We're sorry, but we encountered an unexpected error.
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-100 px-4 py-5">
+      <div className="max-w-md rounded-lg bg-white p-8 text-center shadow-lg">
+        <h1 className="mb-4 text-4xl font-bold text-red-600">Oops!!!</h1>
+        <h2 className="mb-4 text-2xl font-semibold">Something went wrong!</h2>
+        <p className="mb-4 text-gray-700">
+          We&apos;re sorry, but we encountered an unexpected error.
         </p>
         <p className="text-lg font-bold text-gray-800">
           Error {err.status}: {err.statusText}
         </p>
         <button
           onClick={handleGoHome} // Navigate to the home page
-          className="mt-6 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-200"
+          className="mt-6 rounded bg-blue-600 px-4 py-2 text-white transition duration-200 hover:bg-blue-700"
         >
           Go to Home
         </button>

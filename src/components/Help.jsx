@@ -25,7 +25,11 @@ const helpTopics = [
 
 const HelpPage = () => {
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
   }, []);
 
   return (
@@ -40,10 +44,7 @@ const HelpPage = () => {
         </h2>
         <div className="space-y-4">
           {helpTopics.map((topic, index) => (
-            <div
-              key={index}
-              className="rounded-lg bg-white p-4 shadow-md transition duration-300 hover:shadow-lg"
-            >
+            <div key={index} className="rounded-lg bg-white p-4">
               <h3 className="text-lg font-bold text-gray-800">
                 {topic.question}
               </h3>

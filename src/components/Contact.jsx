@@ -9,7 +9,11 @@ const ContactUs = () => {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
   }, []);
 
   const handleChange = (e) => {
@@ -37,7 +41,7 @@ const ContactUs = () => {
 
       {submitted ? (
         <p className="text-center font-semibold text-green-600">
-          Thank you for reaching out! We’ll get back to you soon.
+          Thank you for reaching out! We&apos;ll get back to you soon.
         </p>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-6">

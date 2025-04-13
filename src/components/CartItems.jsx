@@ -1,61 +1,39 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
-  incrementItemQuantity,
+  addItem,
   decrementItemQuantity,
   deleteItem,
-  selectTotalPrice,
+  getTotalPrice,
 } from "../utils/cartSlice";
-import { useState, useEffect } from "react";
 
 function CartItems({ items }) {
-  const [itemCounts, setItemCounts] = useState({});
-
+  const cartItems = useSelector((state) => state.cart.cart);
+  const totalPrice = useSelector(getTotalPrice);
   const dispatch = useDispatch();
-  const cartItems = useSelector((store) => store.cart.cart);
-  const totalPrice = useSelector(selectTotalPrice);
 
-  // Initialize item counts from the cart
-  useEffect(() => {
-    const counts = {};
-    cartItems.forEach((item) => {
-      counts[item.card.info.id] = item.quantity || 1;
-    });
-    setItemCounts(counts);
-  }, [cartItems]);
+  const getItemQuantity = (id) =>
+    cartItems.find((item) => item.card.info.id === id)?.quantity || 0;
 
-  function addHandler(item) {
+  const addHandler = (item) => {
+    dispatch(addItem(item));
+  };
+
+  const deleteHandler = (item) => {
     const itemId = item.card.info.id;
-    dispatch(incrementItemQuantity(itemId));
-    setItemCounts((prevCounts) => ({
-      ...prevCounts,
-      [itemId]: (prevCounts[itemId] || 0) + 1,
-    }));
-  }
+    const quantity = getItemQuantity(itemId);
 
-  function deleteHandler(item) {
-    const itemId = item.card.info.id;
-    const currentCount = itemCounts[itemId] || 0;
-
-    if (currentCount > 1) {
+    if (quantity > 1) {
       dispatch(decrementItemQuantity(itemId));
-      setItemCounts((prevCounts) => ({
-        ...prevCounts,
-        [itemId]: currentCount - 1,
-      }));
-    } else if (currentCount === 1) {
+    } else if (quantity === 1) {
       dispatch(deleteItem(itemId));
-      setItemCounts((prevCounts) => ({
-        ...prevCounts,
-        [itemId]: 0,
-      }));
     }
-  }
+  };
 
   return (
     <div className="space-y-6">
       {items?.map((item) => {
         const itemId = item.card.info.id;
-        const currentCount = itemCounts[itemId] || 0;
+        const quantity = getItemQuantity(itemId);
 
         return (
           <div
@@ -84,7 +62,7 @@ function CartItems({ items }) {
                 -
               </button>
               <span className="text-lg font-semibold text-gray-800">
-                {currentCount}
+                {quantity}
               </span>
               <button
                 className="flex h-10 w-10 items-center justify-center rounded-full bg-green-500 font-bold text-white hover:bg-green-600"

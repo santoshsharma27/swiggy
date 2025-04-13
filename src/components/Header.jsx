@@ -4,7 +4,7 @@ import { HiShoppingCart } from "react-icons/hi2";
 import { FaBars, FaTimes } from "react-icons/fa";
 import useOnline from "../utils/useOnlineStatus";
 import { useSelector } from "react-redux";
-import { selectCartCount } from "../utils/cartSlice";
+import { getCartCount } from "../utils/cartSlice";
 import NavItem from "./NavItem";
 import HoverCart from "./HoverCart";
 
@@ -12,7 +12,7 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false); // State for the hamburger menu
   const [isCartHovered, setIsCartHovered] = useState(false);
   const isOnline = useOnline();
-  const totalCount = useSelector(selectCartCount);
+  const totalCount = useSelector(getCartCount);
   const timeoutId = useRef(null);
 
   const toggleMenu = () => setIsOpen((prev) => !prev);

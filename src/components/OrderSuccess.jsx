@@ -15,14 +15,17 @@ const OrderSuccess = () => {
     dispatch(clearCart());
   }, [dispatch]);
 
-  // Scroll to top when component mounts
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
   }, []);
 
   return (
-    <div className="p-6 mt-8 text-center pt-32">
-      <FaCheckCircle className="text-green-600 text-5xl mx-auto mb-4" />
+    <div className="mt-8 p-6 pt-32 text-center">
+      <FaCheckCircle className="mx-auto mb-4 text-5xl text-green-600" />
       <h2 className="text-3xl font-bold text-green-600">
         Order Placed Successfully!
       </h2>
@@ -42,7 +45,7 @@ const OrderSuccess = () => {
       </p>
       <div className="mt-6">
         <Link
-          className="bg-blue-500 text-white font-semibold px-4 py-3 rounded hover:bg-blue-600"
+          className="rounded bg-blue-500 px-4 py-3 font-semibold text-white hover:bg-blue-600"
           to="/"
         >
           Go to Home

@@ -1,72 +1,39 @@
-import { CDN_URL } from "../utils/constant";
-import {
-  addItem,
-  decrementItemQuantity,
-  deleteItem,
-  incrementItemQuantity,
-} from "../utils/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from "react";
-import Toast from "./Toast";
+import { CDN_URL } from "../utils/constant";
+import { addItem, decrementItemQuantity, deleteItem } from "../utils/cartSlice";
 
 function ItemList({ items, setNotification }) {
   const dispatch = useDispatch();
-  const cartItems = useSelector((store) => store.cart.cart);
-  const [itemCounts, setItemCounts] = useState({});
+  const cartItems = useSelector((state) => state.cart.cart);
 
-  useEffect(() => {
-    const counts = {};
-    cartItems.forEach((item) => {
-      counts[item.card.info.id] = item.quantity || 1;
-    });
-    setItemCounts(counts);
-  }, [cartItems]);
+  const getItemQuantity = (id) =>
+    cartItems.find((item) => item.card.info.id === id)?.quantity || 0;
 
-  function addHandler(item) {
+  const addHandler = (item) => {
     dispatch(addItem(item));
-    const itemId = item.card.info.id;
-    const currentCount = itemCounts[itemId];
-    if (currentCount >= 1) {
-      dispatch(incrementItemQuantity(itemId));
-      setItemCounts((prevCounts) => ({
-        ...prevCounts,
-        [itemId]: currentCount + 1,
-      }));
-    }
     setNotification({ type: "add", message: "Item added to cart!" });
-    setTimeout(() => {
-      setNotification(null);
-    }, 1000);
-  }
+    setTimeout(() => setNotification(null), 1000);
+  };
 
-  function deleteHandler(item) {
+  const deleteHandler = (item) => {
     const itemId = item.card.info.id;
-    const currentCount = itemCounts[itemId] || 0;
+    const quantity = getItemQuantity(itemId);
 
-    if (currentCount > 1) {
+    if (quantity > 1) {
       dispatch(decrementItemQuantity(itemId));
-      setItemCounts((prevCounts) => ({
-        ...prevCounts,
-        [itemId]: currentCount - 1,
-      }));
-    } else if (currentCount === 1) {
+    } else if (quantity === 1) {
       dispatch(deleteItem(itemId));
-      setItemCounts((prevCounts) => ({
-        ...prevCounts,
-        [itemId]: 0,
-      }));
     }
+
     setNotification({ type: "delete", message: "Item removed from cart!" });
-    setTimeout(() => {
-      setNotification(null);
-    }, 1000);
-  }
+    setTimeout(() => setNotification(null), 1000);
+  };
 
   return (
     <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
       {items?.map((item) => {
         const itemId = item.card.info.id;
-        const currentCount = itemCounts[itemId] || 0;
+        const quantity = getItemQuantity(itemId);
 
         return (
           <div
@@ -89,7 +56,6 @@ function ItemList({ items, setNotification }) {
                     ? item.card.info.price / 100
                     : item.card.info.defaultPrice / 100}
                 </span>
-                {/* Conditionally render rating only if it exists */}
                 {item.card.info.ratings?.aggregatedRating?.rating && (
                   <span className="flex items-center rounded-md bg-green-500 px-2 py-1 text-xs text-white">
                     ✭ {item.card.info.ratings.aggregatedRating.rating}
@@ -97,8 +63,10 @@ function ItemList({ items, setNotification }) {
                 )}
               </div>
             </div>
+
+            {/* Quantity Control */}
             <div className="mt-3 flex w-full items-center justify-center">
-              {currentCount > 0 && (
+              {quantity > 0 && (
                 <button
                   className="flex-1 rounded-l-md bg-red-500 py-2 font-semibold text-white hover:bg-red-600"
                   onClick={() => deleteHandler(item)}
@@ -106,14 +74,12 @@ function ItemList({ items, setNotification }) {
                   -
                 </button>
               )}
-              {currentCount > 0 && (
-                <span className="px-3 text-lg font-semibold">
-                  {currentCount}
-                </span>
+              {quantity > 0 && (
+                <span className="px-3 text-lg font-semibold">{quantity}</span>
               )}
               <button
                 className={`flex-1 py-2 ${
-                  currentCount > 0 ? "rounded-r-md" : "rounded-md"
+                  quantity > 0 ? "rounded-r-md" : "rounded-md"
                 } bg-green-500 font-semibold text-white hover:bg-green-600`}
                 onClick={() => addHandler(item)}
               >
@@ -127,13 +93,4 @@ function ItemList({ items, setNotification }) {
   );
 }
 
-export default function ItemListWithToast({ items }) {
-  const [notification, setNotification] = useState(null);
-
-  return (
-    <>
-      <Toast notification={notification} />
-      <ItemList items={items} setNotification={setNotification} />
-    </>
-  );
-}
+export default ItemList;

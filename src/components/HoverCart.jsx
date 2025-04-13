@@ -1,12 +1,12 @@
 import { useSelector } from "react-redux";
-import { selectTotalPrice } from "../utils/cartSlice";
+import { getTotalPrice } from "../utils/cartSlice";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 function HoverCart({ setIsCartHovered }) {
   const [itemCounts, setItemCounts] = useState({});
   const cartItems = useSelector((store) => store.cart.cart);
-  const totalPrice = useSelector(selectTotalPrice);
+  const totalPrice = useSelector(getTotalPrice);
   const navigate = useNavigate();
   const location = useLocation();
 
