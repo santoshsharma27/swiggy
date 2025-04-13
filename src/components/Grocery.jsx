@@ -73,13 +73,6 @@ const Grocery = () => {
     setTimeout(() => setClickedButton(null), 200);
   };
 
-  const getTotalPrice = () => {
-    return Object.values(cart).reduce(
-      (total, item) => total + item.price * item.quantity,
-      0,
-    );
-  };
-
   return (
     <div className="container mx-auto p-6">
       <div className="grid grid-cols-1 gap-8 pt-16 md:grid-cols-2 lg:grid-cols-4">
@@ -123,33 +116,6 @@ const Grocery = () => {
           </div>
         ))}
       </div>
-
-      {/* Cart Summary */}
-      {/* <div className="mt-12 rounded-lg bg-white p-6 shadow-lg">
-        <h2 className="mb-4 text-3xl font-bold text-gray-800">Shopping Cart</h2>
-        {Object.keys(cart).length > 0 ? (
-          <div className="space-y-4">
-            {Object.values(cart).map((item) => (
-              <div
-                key={item.id}
-                className="flex items-center justify-between border-b border-gray-200 pb-2"
-              >
-                <span className="font-medium text-gray-700">
-                  {item.name} x {item.quantity}
-                </span>
-                <span className="font-semibold text-blue-600">
-                  ₹{(item.price * item.quantity).toFixed(2)}
-                </span>
-              </div>
-            ))}
-            <div className="text-right text-lg font-bold text-gray-800">
-              Total: ₹{getTotalPrice().toFixed(2)}
-            </div>
-          </div>
-        ) : (
-          <p className="text-gray-600">Your cart is empty</p>
-        )}
-      </div> */}
     </div>
   );
 };

@@ -4,13 +4,17 @@ import * as Yup from "yup";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const LoginPage = () => {
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
   }, []);
 
   // Determine the current form mode based on URL
@@ -37,7 +41,7 @@ const LoginPage = () => {
           }),
     }),
     onSubmit: async (values) => {
-      setLoading(true);
+      setIsLoading(true);
       setError("");
       try {
         // Simulate login/signup API call
@@ -46,7 +50,7 @@ const LoginPage = () => {
       } catch (err) {
         setError(`Invalid ${isLogin ? "login" : "signup"} attempt`);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     },
   });
@@ -163,11 +167,11 @@ const LoginPage = () => {
           <button
             type="submit"
             className={`w-full rounded-md bg-blue-600 py-2 font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              loading ? "cursor-not-allowed opacity-50" : ""
+              isLoading ? "cursor-not-allowed opacity-50" : ""
             }`}
-            disabled={loading}
+            disabled={isLoading}
           >
-            {loading
+            {isLoading
               ? isLogin
                 ? "Logging in..."
                 : "Signing up..."

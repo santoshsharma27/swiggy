@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 import { HiChevronDown, HiChevronUp } from "react-icons/hi2";
-import ItemList from "./ItemList";
+import ItemListWithToast from "./ItemListWithToast";
 
 function RestaurantCategory({ menu, num, curOpen, onOpen }) {
   const isOpen = num === curOpen;
@@ -28,7 +29,7 @@ function RestaurantCategory({ menu, num, curOpen, onOpen }) {
 
       {isOpen && (
         <div className="mt-2 overflow-hidden transition-all duration-300 ease-in-out">
-          <ItemList items={menu.itemCards} />
+          <ItemListWithToast items={menu.itemCards} />
         </div>
       )}
       <p className="bg-gray-100 py-2"></p>

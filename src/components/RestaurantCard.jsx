@@ -1,15 +1,9 @@
+/* eslint-disable react/prop-types */
 import { CDN_URL } from "../utils/constant";
 
 const RestaurantCard = ({ resData }) => {
-  const {
-    cloudinaryImageId,
-    name,
-    cuisines,
-    avgRating,
-    costForTwo,
-    sla,
-    locality,
-  } = resData;
+  const { cloudinaryImageId, name, cuisines, avgRating, sla, locality } =
+    resData;
 
   return (
     <div className="m-4 flex w-full max-w-[300px] transform flex-col rounded-lg p-4 transition-all duration-300 ease-in-out hover:scale-105 sm:max-w-[300px] lg:max-w-[320px]">

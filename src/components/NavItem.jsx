@@ -5,7 +5,7 @@ const NavItem = ({ to, onClick, children }) => (
     to={to}
     onClick={onClick}
     className={({ isActive }) =>
-      `hover:text-orange-500 ${isActive ? "text-orange-500" : ""}`
+      `hover:text-orange-400 ${isActive ? "text-orange-500" : ""}`
     }
   >
     {children}

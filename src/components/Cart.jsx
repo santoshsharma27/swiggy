@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 function Cart() {
   const dispatch = useDispatch();
-  const cartItems = useSelector((store) => store.cart.cart);
+  const cartItems = useSelector((state) => state.cart.cart);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   function handleClearCart() {
@@ -26,7 +26,11 @@ function Cart() {
 
   // Scroll to top when component mounts
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
   }, []);
 
   if (!cartItems.length) return <EmptyCart />;
@@ -35,7 +39,7 @@ function Cart() {
     <div className="relative">
       {/* Apply blur to the background content when modal is open */}
       <div
-        className={`${isModalOpen ? "blur-sm" : ""} mx-auto mt-10 w-full max-w-3xl rounded-lg p-6 pt-16 shadow-lg`}
+        className={`${isModalOpen ? "blur-sm" : ""} mx-auto mt-10 w-full max-w-3xl rounded-lg p-6 pt-16`}
       >
         <h2 className="mb-6 text-2xl font-semibold text-gray-700">
           Your Cart Items

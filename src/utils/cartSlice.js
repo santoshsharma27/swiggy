@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { calculateTotalPrice } from "./helper";
+import { calculateTotalPrice, updateLocalStorage } from "./helper";
 
+const storedCart = localStorage.getItem("cart");
 const initialState = {
-  cart: [],
-  totalPrice: 0,
+  cart: storedCart ? JSON.parse(storedCart) : [],
+  totalPrice: storedCart ? calculateTotalPrice(JSON.parse(storedCart)) : 0,
 };
 
 const cartSlice = createSlice({
@@ -11,12 +12,17 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addItem: (state, action) => {
-      const itemIndex = state.cart.findIndex(
+      const existingItem = state.cart.find(
         (item) => item.card.info.id === action.payload.card.info.id,
       );
-      if (itemIndex === -1) {
+
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
         state.cart.push({ ...action.payload, quantity: 1 });
       }
+
+      updateLocalStorage(state.cart);
       state.totalPrice = calculateTotalPrice(state.cart);
     },
 
@@ -27,6 +33,8 @@ const cartSlice = createSlice({
       if (item) {
         item.quantity += 1;
       }
+
+      updateLocalStorage(state.cart);
       state.totalPrice = calculateTotalPrice(state.cart);
     },
 
@@ -48,12 +56,15 @@ const cartSlice = createSlice({
       state.cart = state.cart.filter(
         (item) => item.card.info.id !== action.payload,
       );
+
+      updateLocalStorage(state.cart);
       state.totalPrice = calculateTotalPrice(state.cart);
     },
 
     clearCart: (state) => {
       state.cart.length = 0;
       state.totalPrice = 0;
+      updateLocalStorage(state.cart);
     },
   },
 });
@@ -66,11 +77,11 @@ export const {
   clearCart,
 } = cartSlice.actions;
 
+export default cartSlice.reducer;
+
 // Selector to get total count of items in cart
-export const selectCartCount = (state) =>
+export const getCartCount = (state) =>
   state.cart.cart.reduce((total, item) => total + item.quantity, 0);
 
 // Selector to get total amount of items in cart
-export const selectTotalPrice = (state) => state.cart.totalPrice;
-
-export default cartSlice.reducer;
+export const getTotalPrice = (state) => state.cart.totalPrice;

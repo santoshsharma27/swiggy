@@ -14,6 +14,7 @@ const useRestaurantMenu = (resId) => {
 
   const fetchMenu = async () => {
     setLoading(true);
+    setError("");
     try {
       const res = await fetch(MENU_API + resId);
       if (!res.ok) {

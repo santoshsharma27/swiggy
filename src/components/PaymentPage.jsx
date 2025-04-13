@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FaCcVisa, FaCcMastercard, FaCcDiscover } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { selectTotalPrice } from "../utils/cartSlice";
+import { getTotalPrice } from "../utils/cartSlice";
 
 const PaymentPage = () => {
   const [formData, setFormData] = useState({
@@ -15,11 +15,14 @@ const PaymentPage = () => {
   const [loading, setLoading] = useState(false); // State for loader
 
   const navigate = useNavigate();
-  const totalPrice = useSelector(selectTotalPrice);
+  const totalPrice = useSelector(getTotalPrice);
 
-  // Scroll to top when component mounts
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
   }, []);
 
   const handleChange = (e) => {
