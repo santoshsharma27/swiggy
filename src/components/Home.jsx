@@ -15,19 +15,19 @@ const Home = () => {
 
   const isOnline = useOnline();
 
-  const fetchData = async () => {
+  // Fetch restaurant data from API
+  const fetchRestaurants = async () => {
     setLoading(true);
     setFetchError("");
+
     try {
       const res = await fetch(SWIGGY_API);
       if (!res.ok) throw new Error("Error fetching restaurants.");
-
       const json = await res.json();
-      const restaurantData = extractRestaurants(json);
 
+      const restaurantData = extractRestaurants(json);
       setAllRestaurants(restaurantData);
       setFilteredRestaurants(restaurantData);
-      setFetchError("");
     } catch (error) {
       console.error("Fetch Error:", error);
       setFetchError("Failed to load restaurants. Please try again later.");
@@ -36,11 +36,7 @@ const Home = () => {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-    window.scrollTo(0, 0);
-  }, []);
-
+  // Extract restaurants from deeply nested API response
   const extractRestaurants = (json) => {
     for (let card of json?.data?.cards || []) {
       const restaurants =
@@ -50,39 +46,48 @@ const Home = () => {
     return [];
   };
 
+  useEffect(() => {
+    fetchRestaurants();
+    window.scrollTo(0, 0);
+  }, []);
+
+  // Handle search input and filter matching restaurants
   const handleSearch = (value) => {
     window.scrollTo(0, 0);
-    if (value.trim() === "") {
+    const trimmed = value.trim().toLowerCase();
+    setSearchText(value);
+
+    if (!trimmed) {
       setFilteredRestaurants(allRestaurants);
       setSearchError("");
-    } else {
-      const filtered = allRestaurants.filter((restaurant) =>
-        restaurant?.info?.name
-          .toLowerCase()
-          .includes(value.trim().toLowerCase()),
-      );
-
-      setFilteredRestaurants(filtered);
-      setSearchError(
-        filtered.length === 0
-          ? "Oops! It seems there are no restaurants matching that name. Discover something new instead!"
-          : "",
-      );
+      return;
     }
+
+    const filtered = allRestaurants.filter((r) =>
+      r?.info?.name?.toLowerCase().includes(trimmed),
+    );
+
+    setFilteredRestaurants(filtered);
+    setSearchError(
+      filtered.length === 0
+        ? "Oops! It seems there are no restaurants matching that name. Discover something new instead!"
+        : "",
+    );
   };
 
+  // Filter top-rated restaurants
   const filterTopRated = () => {
     window.scrollTo(0, 0);
-    const topRatedRestaurants = allRestaurants.filter(
-      (restaurant) => restaurant?.info?.avgRating > 4.3,
-    );
-    setFilteredRestaurants(topRatedRestaurants);
+    const topRated = allRestaurants.filter((r) => r?.info?.avgRating > 4.3);
+
+    setFilteredRestaurants(topRated);
     setSearchText("");
     setSearchError(
-      topRatedRestaurants.length === 0 ? "No top-rated restaurants found." : "",
+      topRated.length === 0 ? "No top-rated restaurants found." : "",
     );
   };
 
+  // Show offline message if user is not online
   if (!isOnline) {
     return (
       <h1 className="m-10 p-10 text-center">
@@ -93,6 +98,7 @@ const Home = () => {
 
   return (
     <div>
+      {/* Search & filter bar */}
       <SearchBar
         searchText={searchText}
         setSearchText={setSearchText}
@@ -108,6 +114,7 @@ const Home = () => {
       {fetchError && (
         <p className="pt-10 text-center text-red-500">{fetchError}</p>
       )}
+
       {searchError && (
         <p className="pt-10 text-center text-red-500">{searchError}</p>
       )}

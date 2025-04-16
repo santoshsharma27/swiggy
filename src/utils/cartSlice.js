@@ -49,6 +49,7 @@ const cartSlice = createSlice({
           (item) => item.card.info.id !== action.payload,
         );
       }
+      updateLocalStorage(state.cart);
       state.totalPrice = calculateTotalPrice(state.cart);
     },
 
