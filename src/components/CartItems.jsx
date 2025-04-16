@@ -6,13 +6,14 @@ import {
   getTotalPrice,
 } from "../utils/cartSlice";
 
-function CartItems({ items }) {
+function CartItems() {
   const cartItems = useSelector((state) => state.cart.cart);
   const totalPrice = useSelector(getTotalPrice);
   const dispatch = useDispatch();
 
-  const getItemQuantity = (id) =>
-    cartItems.find((item) => item.card.info.id === id)?.quantity || 0;
+  const getItemQuantity = (id) => {
+    return cartItems.find((item) => item.card.info.id === id)?.quantity || 0;
+  };
 
   const addHandler = (item) => {
     dispatch(addItem(item));
@@ -31,7 +32,10 @@ function CartItems({ items }) {
 
   return (
     <div className="space-y-6">
-      {items?.map((item) => {
+      <h2 className="mb-6 text-2xl font-semibold text-gray-700">
+        Your Cart Items
+      </h2>
+      {cartItems?.map((item) => {
         const itemId = item.card.info.id;
         const quantity = getItemQuantity(itemId);
 

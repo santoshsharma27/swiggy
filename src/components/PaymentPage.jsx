@@ -12,7 +12,7 @@ const PaymentPage = () => {
     cvv: "",
   });
 
-  const [loading, setLoading] = useState(false); // State for loader
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const totalPrice = useSelector(getTotalPrice);
@@ -55,12 +55,11 @@ const PaymentPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true); // Set loading state to true
+    setLoading(true);
 
     // Simulate payment processing (replace this with actual payment logic)
     setTimeout(() => {
       setLoading(false);
-      // Redirect to the success page
       navigate("/order-success");
     }, 2000); // Simulate a 2-second processing time
   };
@@ -92,14 +91,14 @@ const PaymentPage = () => {
               Card Number
             </label>
             <input
-              type="text" // Change to text to allow spaces
+              type="text"
               name="cardNumber"
               id="cardNumber"
               value={formData.cardNumber}
               onChange={handleChange}
               maxLength="19" // For 16 digits + 3 spaces
               required
-              className="w-full rounded border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded border border-gray-300 p-3 focus:outline-none"
               placeholder="1234 5678 9012 3456"
             />
           </div>
@@ -117,7 +116,7 @@ const PaymentPage = () => {
               value={formData.cardName}
               onChange={handleChange}
               required
-              className="w-full rounded border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded border border-gray-300 p-3 focus:outline-none"
               placeholder="John Doe"
             />
           </div>
@@ -130,14 +129,14 @@ const PaymentPage = () => {
                 Expiry Date (MM/YY)
               </label>
               <input
-                type="text" // Change to text to allow slash
+                type="text"
                 name="expiryDate"
                 id="expiryDate"
                 value={formData.expiryDate}
                 onChange={handleChange}
                 maxLength="5" // For MM/YY
                 required
-                className="w-full rounded border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded border border-gray-300 p-3 focus:outline-none"
                 placeholder="MM/YY"
               />
             </div>
@@ -149,14 +148,14 @@ const PaymentPage = () => {
                 CVV
               </label>
               <input
-                type="text" // Change to text to allow only numbers
+                type="text"
                 name="cvv"
                 id="cvv"
                 value={formData.cvv}
                 onChange={handleChange}
-                maxLength="3" // For CVV
+                maxLength="3"
                 required
-                className="w-full rounded border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded border border-gray-300 p-3 focus:outline-none"
                 placeholder="123"
               />
             </div>

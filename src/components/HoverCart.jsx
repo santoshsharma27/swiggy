@@ -1,17 +1,16 @@
 import { useSelector } from "react-redux";
 import { getTotalPrice } from "../utils/cartSlice";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 function HoverCart({ setIsCartHovered }) {
-  const [itemCounts, setItemCounts] = useState({});
-  const cartItems = useSelector((store) => store.cart.cart);
+  const cartItems = useSelector((state) => state.cart.cart);
   const totalPrice = useSelector(getTotalPrice);
   const navigate = useNavigate();
   const location = useLocation();
 
   function handleCheckout() {
-    navigate("/checkout"); // Navigate to the order page
+    navigate("/checkout");
   }
 
   // Close hover cart automatically when on checkout page
@@ -29,19 +28,11 @@ function HoverCart({ setIsCartHovered }) {
     }
   }, [location, setIsCartHovered]);
 
-  useEffect(() => {
-    const counts = {};
-    cartItems.forEach((item) => {
-      counts[item.card.info.id] = item.quantity || 1;
-    });
-    setItemCounts(counts);
-  }, [cartItems]);
-
   return (
     <div className="space-y-6 p-2 pt-4">
       {cartItems.map((item) => {
         const itemId = item.card.info.id;
-        const itemQuantity = itemCounts[itemId] || 1;
+        const itemQuantity = item[itemId] || 1;
         const itemPrice =
           (item.card.info.price || item.card.info.defaultPrice) / 100;
 

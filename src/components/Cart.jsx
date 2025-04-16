@@ -41,12 +41,8 @@ function Cart() {
       <div
         className={`${isModalOpen ? "blur-sm" : ""} mx-auto mt-10 w-full max-w-3xl rounded-lg p-6 pt-16`}
       >
-        <h2 className="mb-6 text-2xl font-semibold text-gray-700">
-          Your Cart Items
-        </h2>
-
         <div className="divide-y divide-gray-300">
-          <CartItems items={cartItems} />
+          <CartItems />
         </div>
 
         <div className="mt-8 flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">

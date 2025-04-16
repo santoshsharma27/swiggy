@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { addUserName } from "../utils/userSlice";
 
 const Address = () => {
   const [userName, setUserName] = useState("");
@@ -9,6 +11,7 @@ const Address = () => {
   const [landmark, setLandmark] = useState("");
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     window.scrollTo({
@@ -36,6 +39,12 @@ const Address = () => {
     setLandmark("");
   };
 
+  const handleUserName = (e) => {
+    const value = e.target.value;
+    setUserName(value);
+    dispatch(addUserName(value));
+  };
+
   return (
     <div className="mx-auto mt-12 max-w-lg rounded-lg p-8">
       <h2 className="mb-8 text-center text-3xl font-bold text-gray-800">
@@ -54,7 +63,7 @@ const Address = () => {
             type="text"
             id="name"
             value={userName}
-            onChange={(e) => setUserName(e.target.value)}
+            onChange={handleUserName}
             required
             placeholder="Enter your name"
             className="mt-1 block w-full rounded-lg border border-gray-300 p-3 text-gray-900 shadow-sm focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50"
