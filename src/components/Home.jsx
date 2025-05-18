@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import SearchBar from "./SearchBar";
-import RestaurantGrid from "./restaurant/RestaurantGrid";
-import useOnline from "../hooks/useOnlineStatus";
+import RestaurantGrid from "./RestaurantGrid";
+import useOnline from "../utils/useOnlineStatus";
 import { SWIGGY_API } from "../utils/constant";
 
-const Menu = () => {
+const Home = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
@@ -131,4 +131,4 @@ const Menu = () => {
   );
 };
 
-export default Menu;
+export default Home;

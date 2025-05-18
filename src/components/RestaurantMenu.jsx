@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import useRestaurantMenu from "../../hooks/useRestaurantMenu";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
 import RestaurantCategory from "./RestaurantCateory";
-import Loader from "../../ui/Loader";
+import Loader from "../ui/Loader";
 
 const RestaurantMenu = () => {
   const [curOpen, setCurOpen] = useState(0);

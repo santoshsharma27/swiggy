@@ -1,17 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-import {
-  calculateTotalPrice,
-  updateCartState,
-  updateLocalStorage,
-} from "../../utils/helper.js";
+import { calculateTotalPrice, updateLocalStorage } from "./helper";
 
 const storedCart = localStorage.getItem("cart");
-const initialCart = storedCart ? JSON.parse(storedCart) : [];
-
 const initialState = {
-  cart: initialCart,
-  totalPrice: calculateTotalPrice(initialCart),
+  cart: storedCart ? JSON.parse(storedCart) : [],
+  totalPrice: storedCart ? calculateTotalPrice(JSON.parse(storedCart)) : 0,
 };
 
 const cartSlice = createSlice({
@@ -29,7 +22,8 @@ const cartSlice = createSlice({
         state.cart.push({ ...action.payload, quantity: 1 });
       }
 
-      updateCartState(state);
+      updateLocalStorage(state.cart);
+      state.totalPrice = calculateTotalPrice(state.cart);
     },
 
     incrementItemQuantity: (state, action) => {

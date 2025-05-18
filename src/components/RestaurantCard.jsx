@@ -1,4 +1,5 @@
-import { CDN_URL } from "../../utils/constant";
+/* eslint-disable react/prop-types */
+import { CDN_URL } from "../utils/constant";
 
 const RestaurantCard = ({ resData }) => {
   const { cloudinaryImageId, name, cuisines, avgRating, sla, locality } =

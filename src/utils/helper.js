@@ -10,8 +10,3 @@ export const calculateTotalPrice = (cart) => {
 export const updateLocalStorage = (cart) => {
   localStorage.setItem("cart", JSON.stringify(cart));
 };
-
-export const updateCartState = (state) => {
-  updateLocalStorage(state.cart);
-  state.totalPrice = calculateTotalPrice(state.cart);
-};

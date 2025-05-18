@@ -2,11 +2,11 @@ import { useState, useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { HiShoppingCart } from "react-icons/hi2";
 import { FaBars, FaTimes } from "react-icons/fa";
-import useOnline from "../hooks/useOnlineStatus";
+import useOnline from "../utils/useOnlineStatus";
 import { useSelector } from "react-redux";
-import { getCartCount } from "./cart/cartSlice";
+import { getCartCount } from "../utils/cartSlice";
 import NavItem from "./NavItem";
-import HoverCart from "./cart/HoverCart";
+import HoverCart from "./HoverCart";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false); // State to toggle mobile menu visibility
@@ -15,7 +15,6 @@ const Header = () => {
 
   const isOnline = useOnline();
   const cartCount = useSelector(getCartCount);
-  const userName = useSelector((state) => state.user.userName);
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
 
@@ -69,7 +68,7 @@ const Header = () => {
           <NavItem to="/grocery">Grocery</NavItem>
           <NavItem to="/offers">Offers</NavItem>
           <NavItem to="/help">Help</NavItem>
-          <span className="uppercase">{userName}</span>
+          <NavItem to="/login">Login</NavItem>
         </div>
 
         {/* Cart icon with hover dropdown (only on desktop) */}
@@ -126,7 +125,9 @@ const Header = () => {
             <NavItem to="/help" onClick={toggleMenu}>
               Help
             </NavItem>
-            <span className="uppercase">{userName}</span>
+            <NavItem to="/login" onClick={toggleMenu}>
+              Login
+            </NavItem>
           </ul>
         </div>
       )}

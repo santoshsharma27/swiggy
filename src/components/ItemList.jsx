@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { CDN_URL } from "../utils/constant";
-import { addItem, decrementItemQuantity, deleteItem } from "./cart/cartSlice";
+import { addItem, decrementItemQuantity, deleteItem } from "../utils/cartSlice";
 
 function ItemList({ items, setNotification }) {
   const dispatch = useDispatch();

@@ -2,18 +2,17 @@ import { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Contact from "./components/Contact";
 import Error from "./ui/Error";
-import Cart from "./components/cart/Cart";
-import RestaurantMenu from "./components/restaurant/RestaurantMenu";
+import Cart from "./components/Cart";
+import RestaurantMenu from "./components/RestaurantMenu";
 import Address from "./components/Address";
 import OrderSuccess from "./components/OrderSuccess";
 import PaymentPage from "./components/PaymentPage";
 import AppLayout from "./ui/AppLayout";
-import Home from "./ui/Home";
+import Home from "./components/Home";
 import LoginPage from "./components/LoginPage";
 import Offers from "./components/Offers";
 import Help from "./components/Help";
 import Loader from "./ui/Loader";
-import Menu from "./components/Menu";
 // import Grocery from "./components/Grocery";
 // import About from "./components/About";
 
@@ -28,10 +27,6 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-      },
-      {
-        path: "/menu",
-        element: <Menu />,
       },
       {
         path: "/about",
