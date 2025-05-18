@@ -1,5 +1,5 @@
 function Santosh() {
-  return <div>Santosh Feature2</div>;
+  return <div>Santosh</div>;
 }
 
 export default Santosh;
